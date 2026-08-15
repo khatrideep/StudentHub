@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Hub - Feedback</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            background: #eaeaea;
+            font-family: Arial, sans-serif;
+            color: #111;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0;
+        }
+
+        .page-wrapper {
+            max-width: none;
+            width: 100%;
+            background: #fff;
+            border-radius: 0;
+            box-shadow: none;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 20px 36px 0;
+        }
+
+        .main-content {
+            flex: 1 0 auto;
+        }
+
+        a {
+            text-decoration: none;
+            color: #111;
+        }
+
+        h1,
+        h2 {
+            font-weight: 600;
+            color: #111;
+            margin-bottom: 6px;
+        }
+
+        p {
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .text-muted {
+            color: #555;
+        }
+
+        .navbar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0 14px;
+            border-bottom: 1px solid #d4d4d4;
+            margin-bottom: 28px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: #f4f4f4;
+            padding: 2px 14px 2px 10px;
+            border-radius: 30px;
+            border: 1px solid #d4d4d4;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 16px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.95rem;
+            padding: 4px 0;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-links a:hover {
+            border-bottom-color: #111;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #111;
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid #111;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+
+        .btn:hover {
+            background: #2b2b2b;
+        }
+
+        .panel {
+            background: #fff;
+            border: 1px solid #d4d4d4;
+            border-radius: 14px;
+            padding: 18px 16px;
+            max-width: 700px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #d4d4d4;
+            border-radius: 8px;
+            font: inherit;
+            background: #fff;
+        }
+
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 4px;
+            color: #111;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .rating-group {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .rating-group span {
+            background: #f4f4f4;
+            padding: 4px 14px;
+            border-radius: 30px;
+            border: 1px solid #d4d4d4;
+        }
+
+        .footer {
+            flex-shrink: 0;
+            margin-top: 32px;
+            padding: 16px 0 18px;
+            border-top: 1px solid #d4d4d4;
+            text-align: center;
+            color: #555;
+            font-size: 0.9rem;
+            background: #fff;
+        }
+
+        .footer a {
+            color: #111;
+            text-decoration: underline;
+        }
+
+        @media (min-width: 1100px) {
+            .page-wrapper {
+                padding: 28px 52px 0;
+            }
+
+            .navbar {
+                padding: 14px 0 20px;
+            }
+
+            .brand {
+                font-size: 2rem;
+            }
+
+            .panel {
+                max-width: 100%;
+                padding: 24px 22px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+            }
+
+            .page-wrapper {
+                padding: 15px 15px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page-wrapper">
+        <div class="main-content">
+
+            <header class="navbar">
+                <a href="../index.html" class="brand"><div class="logo"><img src="../logo.jpeg" alt="Student Hub Logo" /></div>Student Hub</a>
+                <ul class="nav-links">
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="admin.html">Admin</a></li>
+                    <li><a href="feedback.html">Feedback</a></li>
+                    <li><a href="faqs.html">FAQs</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>
+                </ul>
+            </header>
+
+            <div class="panel">
+                <h1>Feedback</h1>
+                <p class="text-muted" style="margin-bottom: 16px;">Share your suggestions to improve services,
+                    facilities, and campus experience.</p>
+                <form>
+                    <div class="form-group"><label>Name</label><input type="text" placeholder="Your name" /></div>
+                    <div class="form-group"><label>Email</label><input type="email" placeholder="Email" /></div>
+                    <div class="form-group"><label>Category</label><select>
+                            <option>Campus facility</option>
+                            <option>Academic</option>
+                            <option>Event</option>
+                        </select></div>
+                    <div class="form-group"><label>Rating</label>
+                        <div class="rating-group"><span>5</span><span>4</span><span>3</span><span>2</span><span>1</span>
+                        </div>
+                    </div>
+                    <div class="form-group"><label>Message</label><textarea placeholder="Write feedback"></textarea>
+                    </div>
+                    <button type="submit" class="btn">Send Feedback</button>
+                </form>
+            </div>
+
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2026 Student Hub &middot; <a href="contact.html">Contact Us</a></p>
+        </footer>
+    </div>
+
+</body>
+
+</html>

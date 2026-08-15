@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Hub - Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            background: #eaeaea;
+            font-family: Arial, sans-serif;
+            color: #111;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0;
+        }
+
+        .page-wrapper {
+            max-width: none;
+            width: 100%;
+            background: #fff;
+            border-radius: 0;
+            box-shadow: none;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 20px 36px 0;
+        }
+
+        .main-content {
+            flex: 1 0 auto;
+        }
+
+        a {
+            text-decoration: none;
+            color: #111;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-weight: 600;
+            color: #111;
+            margin-bottom: 6px;
+        }
+
+        p {
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .text-muted {
+            color: #555;
+        }
+
+        .navbar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0 14px;
+            border-bottom: 1px solid #d4d4d4;
+            margin-bottom: 28px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: #f4f4f4;
+            padding: 2px 14px 2px 10px;
+            border-radius: 30px;
+            border: 1px solid #d4d4d4;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 16px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.95rem;
+            padding: 4px 0;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-links a:hover {
+            border-bottom-color: #111;
+        }
+
+        .card,
+        .panel {
+            background: #fff;
+            border: 1px solid #d4d4d4;
+            border-radius: 14px;
+            padding: 18px 16px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 18px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 14px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            border-bottom: 2px solid #d4d4d4;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab-button:hover {
+            color: #111;
+        }
+
+        .tab-button.active {
+            color: #111;
+            border-bottom-color: #111;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #d4d4d4;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-present {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-absent {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status-submitted {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-overdue {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .assignment-item {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border-left: 4px solid #667eea;
+        }
+
+        .note-card {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border-top: 4px solid #667eea;
+        }
+
+        .notice-item {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border-left: 4px solid #667eea;
+        }
+
+        .footer {
+            flex-shrink: 0;
+            margin-top: 32px;
+            padding: 16px 0 18px;
+            border-top: 1px solid #d4d4d4;
+            text-align: center;
+            color: #555;
+            font-size: 0.9rem;
+            background: #fff;
+        }
+
+        .footer a {
+            color: #111;
+            text-decoration: underline;
+        }
+
+        .badge {
+            background: #d4d4d4;
+            padding: 2px 10px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        ul li {
+            padding: 6px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .profile-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .profile-card {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #d4d4d4;
+        }
+
+        .profile-card strong {
+            display: block;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        @media (min-width: 1100px) {
+            .page-wrapper {
+                padding: 28px 52px 0;
+            }
+
+            .navbar {
+                padding: 14px 0 20px;
+            }
+
+            .brand {
+                font-size: 2rem;
+            }
+
+            .grid-2,
+            .grid-4 {
+                gap: 22px;
+            }
+
+            .card,
+            .panel {
+                padding: 22px 20px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+            }
+
+            .page-wrapper {
+                padding: 15px 15px 0;
+            }
+
+            .tabs {
+                gap: 5px;
+            }
+
+            .tab-button {
+                padding: 8px 12px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page-wrapper">
+        <div class="main-content">
+
+            <header class="navbar">
+                <a href="../index.html" class="brand"><div class="logo"><img src="../logo.jpeg" alt="Student Hub Logo" /></div>Student Hub</a>
+                <ul class="nav-links">
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="admin.html">Admin</a></li>
+                    <li><a href="feedback.html">Feedback</a></li>
+                    <li><a href="faqs.html">FAQs</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>
+                </ul>
+            </header>
+
+            <h1>Student Dashboard</h1>
+            <p class="text-muted" style="margin-bottom: 16px;">Access all your academic information in one place.</p>
+
+            <div class="grid-4" style="margin-bottom: 24px;">
+                <div class="card"><small class="text-muted">Overall Attendance</small><strong
+                        style="font-size:1.8rem;">92%</strong></div>
+                <div class="card"><small class="text-muted">Total Assignments</small><strong
+                        style="font-size:1.8rem;">04</strong></div>
+                <div class="card"><small class="text-muted">Exam Results</small><strong
+                        style="font-size:1.8rem;">A-</strong></div>
+                <div class="card"><small class="text-muted">Tasks Due</small><strong
+                        style="font-size:1.8rem;">02</strong></div>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-button active" onclick="showTab('overview')">📊 Overview</button>
+                <button class="tab-button" onclick="showTab('attendance')">📋 Attendance</button>
+                <button class="tab-button" onclick="showTab('assignments')">📝 Assignments</button>
+                <button class="tab-button" onclick="showTab('notes')">📚 Notes</button>
+                <button class="tab-button" onclick="showTab('timetable')">📅 Timetable</button>
+                <button class="tab-button" onclick="showTab('results')">📊 Results</button>
+                <button class="tab-button" onclick="showTab('notice')">📢 Notice Board</button>
+                <button class="tab-button" onclick="showTab('profile')">👤 Profile</button>
+            </div>
+
+            <!-- Overview Tab -->
+            <div id="overview" class="tab-content active">
+                <div class="grid-2">
+                    <div class="panel">
+                        <h3>Quick overview</h3>
+                        <ul>
+                            <li>Science Fair registration open <span class="badge">New</span></li>
+                            <li>Exam timetable published</li>
+                            <li>Careers workshop Friday 11AM</li>
+                        </ul>
+                    </div>
+                    <div class="panel">
+                        <h3>My activities</h3>
+                        <ul>
+                            <li>Attended orientation</li>
+                            <li>Submitted scholarship form</li>
+                            <li>Joined coding club</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Attendance Tab -->
+            <div id="attendance" class="tab-content">
+                <div
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 20px;">
+                    <div class="card"><small class="text-muted">Overall Attendance</small><strong
+                            style="font-size:1.8rem;">92%</strong></div>
+                    <div class="card"><small class="text-muted">Classes Present</small><strong
+                            style="font-size:1.8rem;">23</strong></div>
+                    <div class="card"><small class="text-muted">Classes Absent</small><strong
+                            style="font-size:1.8rem;">2</strong></div>
+                    <div class="card"><small class="text-muted">Leave/Excused</small><strong
+                            style="font-size:1.8rem;">1</strong></div>
+                </div>
+                <div class="panel">
+                    <h3>Attendance Details</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Subject</th>
+                                <th>Status</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Aug 10, 2024</td>
+                                <td>Mathematics</td>
+                                <td><span class="status-badge status-present">✓ Present</span></td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Aug 10, 2024</td>
+                                <td>English</td>
+                                <td><span class="status-badge status-present">✓ Present</span></td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Aug 9, 2024</td>
+                                <td>Science</td>
+                                <td><span class="status-badge status-absent">✗ Absent</span></td>
+                                <td>Medical Leave</td>
+                            </tr>
+                            <tr>
+                                <td>Aug 9, 2024</td>
+                                <td>History</td>
+                                <td><span class="status-badge status-present">✓ Present</span></td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Assignments Tab -->
+            <div id="assignments" class="tab-content">
+                <div class="assignment-item">
+                    <h3>Mathematics - Calculus Chapter 5</h3>
+                    <p class="text-muted" style="font-size: 0.9rem;">Subject: Mathematics | Due: Aug 20, 2024</p>
+                    <p>Complete all exercises from page 120-135. Submit as PDF.</p>
+                    <span class="status-badge status-pending" style="margin-top: 10px;">Pending</span>
+                </div>
+
+                <div class="assignment-item">
+                    <h3>English Literature - Essay on Shakespeare</h3>
+                    <p class="text-muted" style="font-size: 0.9rem;">Subject: English | Due: Aug 18, 2024</p>
+                    <p>Write a 2000-word essay analyzing "Hamlet". Use MLA format.</p>
+                    <span class="status-badge status-overdue" style="margin-top: 10px;">Overdue</span>
+                </div>
+
+                <div class="assignment-item">
+                    <h3>Science Project - Biology Experiment Report</h3>
+                    <p class="text-muted" style="font-size: 0.9rem;">Subject: Science | Due: Aug 15, 2024</p>
+                    <p>Document and submit your lab experiment findings with charts.</p>
+                    <span class="status-badge status-submitted" style="margin-top: 10px;">Submitted</span>
+                </div>
+
+                <div class="assignment-item">
+                    <h3>History - Research Paper on Ancient Rome</h3>
+                    <p class="text-muted" style="font-size: 0.9rem;">Subject: History | Due: Aug 25, 2024</p>
+                    <p>3000-word research paper with minimum 5 scholarly sources.</p>
+                    <span class="status-badge status-pending" style="margin-top: 10px;">Pending</span>
+                </div>
+            </div>
+
+            <!-- Notes Tab -->
+            <div id="notes" class="tab-content">
+                <div class="note-card">
+                    <strong style="color: #667eea;">Mathematics</strong>
+                    <h3>Calculus - Derivatives</h3>
+                    <p style="margin-top: 8px;">Comprehensive notes on differential calculus including rules,
+                        applications, and problem-solving techniques.</p>
+                    <p class="text-muted" style="font-size: 0.85rem; margin-top: 8px;">Added: Aug 8, 2024 | <a href="#"
+                            style="color: #667eea;">📥 Download PDF</a></p>
+                </div>
+
+                <div class="note-card">
+                    <strong style="color: #667eea;">English</strong>
+                    <h3>Literary Analysis & Essay Writing</h3>
+                    <p style="margin-top: 8px;">Detailed guide on analyzing literature, thesis statements, and writing
+                        effective academic essays.</p>
+                    <p class="text-muted" style="font-size: 0.85rem; margin-top: 8px;">Added: Aug 7, 2024 | <a href="#"
+                            style="color: #667eea;">📥 Download PDF</a></p>
+                </div>
+
+                <div class="note-card">
+                    <strong style="color: #667eea;">Science</strong>
+                    <h3>Cell Biology Fundamentals</h3>
+                    <p style="margin-top: 8px;">Notes covering cell structure, function, mitosis, meiosis, and cellular
+                        processes with diagrams.</p>
+                    <p class="text-muted" style="font-size: 0.85rem; margin-top: 8px;">Added: Aug 6, 2024 | <a href="#"
+                            style="color: #667eea;">📥 Download PDF</a></p>
+                </div>
+
+                <div class="note-card">
+                    <strong style="color: #667eea;">History</strong>
+                    <h3>Medieval Europe (1000-1500)</h3>
+                    <p style="margin-top: 8px;">Complete study notes on feudalism, kingdoms, and significant events
+                        during the medieval period.</p>
+                    <p class="text-muted" style="font-size: 0.85rem; margin-top: 8px;">Added: Aug 5, 2024 | <a href="#"
+                            style="color: #667eea;">📥 Download PDF</a></p>
+                </div>
+            </div>
+
+            <!-- Timetable Tab -->
+            <div id="timetable" class="tab-content">
+                <div class="panel">
+                    <h3>Class Timetable</h3>
+                    <table style="font-size: 0.9rem;">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Monday</th>
+                                <th>Tuesday</th>
+                                <th>Wednesday</th>
+                                <th>Thursday</th>
+                                <th>Friday</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>8:00 - 9:00</strong></td>
+                                <td>Mathematics<br><small>Room 101</small></td>
+                                <td>English<br><small>Room 205</small></td>
+                                <td>Science<br><small>Lab A</small></td>
+                                <td>History<br><small>Room 301</small></td>
+                                <td>Physics<br><small>Lab B</small></td>
+                            </tr>
+                            <tr>
+                                <td><strong>9:00 - 10:00</strong></td>
+                                <td>English<br><small>Room 205</small></td>
+                                <td>Chemistry<br><small>Lab C</small></td>
+                                <td>Mathematics<br><small>Room 101</small></td>
+                                <td>Science<br><small>Lab A</small></td>
+                                <td>English<br><small>Room 205</small></td>
+                            </tr>
+                            <tr style="background-color: #fff3cd;">
+                                <td colspan="6" style="text-align: center; font-style: italic;">☕ Break (10:00 - 10:15)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>10:15 - 11:15</strong></td>
+                                <td>Science<br><small>Lab A</small></td>
+                                <td>History<br><small>Room 301</small></td>
+                                <td>English<br><small>Room 205</small></td>
+                                <td>Chemistry<br><small>Lab C</small></td>
+                                <td>Mathematics<br><small>Room 101</small></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Results Tab -->
+            <div id="results" class="tab-content">
+                <div
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin-bottom: 20px;">
+                    <div class="card"
+                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                        <small>Overall Grade</small><strong style="font-size:1.8rem;">78%</strong></div>
+                    <div class="card"
+                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                        <small>Overall Rating</small><strong style="font-size:1.8rem;">A-</strong></div>
+                    <div class="card"
+                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                        <small>Exams Completed</small><strong style="font-size:1.8rem;">6</strong></div>
+                </div>
+
+                <div class="panel">
+                    <h3>Mathematics - Final Exam</h3>
+                    <table style="font-size: 0.9rem;">
+                        <thead>
+                            <tr>
+                                <th>Component</th>
+                                <th>Marks</th>
+                                <th>Percentage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Written</td>
+                                <td>82</td>
+                                <td>82%</td>
+                            </tr>
+                            <tr>
+                                <td>Practical</td>
+                                <td>80</td>
+                                <td>80%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total</strong></td>
+                                <td><strong>81</strong></td>
+                                <td><strong>A</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="panel" style="margin-top: 20px;">
+                    <h3>English - Mid Term</h3>
+                    <table style="font-size: 0.9rem;">
+                        <thead>
+                            <tr>
+                                <th>Component</th>
+                                <th>Marks</th>
+                                <th>Percentage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Essay</td>
+                                <td>75</td>
+                                <td>75%</td>
+                            </tr>
+                            <tr>
+                                <td>MCQ</td>
+                                <td>78</td>
+                                <td>78%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Total</strong></td>
+                                <td><strong>76</strong></td>
+                                <td><strong>B+</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Notice Board Tab -->
+            <div id="notice" class="tab-content">
+                <div class="notice-item">
+                    <h3>Science Fair Registration Open</h3>
+                    <p class="text-muted" style="font-size: 0.9rem;">Posted: Aug 10, 2026</p>
+                    <p>Students are invited to register for the annual Science Fair. Last date for registration is Aug
+                        20, 2026. All interested students should submit their project proposals by Aug 18.</p>
+                    <span class="badge" style="background-color: #fff3cd; color: #856404;">Important</span>
+                </div>
+
+                <div class="notice-item">
+                    <h3>Exam Timetable Published</h3>
+                    <p class="text-muted" style="font-size: 0.9rem;">Posted: Aug 8, 2026</p>
+                    <p>The final exam timetable for the current semester has been published. Please check your exam
+                        dates and venues. Exams commence from Aug 22, 2026.</p>
+                </div>
+
+                <div class="notice-item">
+                    <h3>Careers Workshop - Friday 11 AM</h3>
+                    <p class="text-muted" style="font-size: 0.9rem;">Posted: Aug 7, 2026</p>
+                    <p>Join us for a careers workshop with industry professionals. Learn about internship opportunities
+                        and career guidance. Location: Main Auditorium.</p>
+                    <span class="badge" style="background-color: #d4edda; color: #155724;">Upcoming Event</span>
+                </div>
+
+                <div class="notice-item">
+                    <h3>Scholarship Applications Closed</h3>
+                    <p class="text-muted" style="font-size: 0.9rem;">Posted: Aug 5, 2026</p>
+                    <p>The scholarship application portal has been closed. Results will be announced by Aug 25, 2026.
+                        Thank you for your participation!</p>
+                </div>
+            </div>
+
+            <!-- Profile Tab -->
+            <div id="profile" class="tab-content">
+                <div class="profile-section">
+                    <div class="profile-card">
+                        <strong>Full Name</strong>
+                        <p>Ram Kumar</p>
+                    </div>
+                    <div class="profile-card">
+                        <strong>Student ID</strong>
+                        <p>123456</p>
+                    </div>
+                    <div class="profile-card">
+                        <strong>Email</strong>
+                        <p>ramkumar@studenthub.edu</p>
+                    </div>
+                    <div class="profile-card">
+                        <strong>Phone</strong>
+                        <p>+91 1235464546</p>
+                    </div>
+                    <div class="profile-card">
+                        <strong>Program</strong>
+                        <p>Bachelor of Science in Computer Science</p>
+                    </div>
+                    <div class="profile-card">
+                        <strong>Year</strong>
+                        <p>Second Year</p>
+                    </div>
+                    <div class="profile-card">
+                        <strong>Enrollment Date</strong>
+                        <p>july 15, 2026</p>
+                    </div>
+                    <div class="profile-card">
+                        <strong>GPA</strong>
+                        <p>3.8 / 4.0</p>
+                    </div>
+                </div>
+
+                <div class="panel" style="margin-top: 20px;">
+                    <h3>Account Settings</h3>
+                    <ul>
+                        <li><a href="#" style="color: #667eea;">✏️ Edit Profile</a></li>
+                        <li><a href="#" style="color: #667eea;">🔐 Change Password</a></li>
+                        <li><a href="#" style="color: #667eea;">📧 Update Email Preferences</a></li>
+                        <li><a href="logout.html" style="color: #667eea;">🚪 Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2026 Student Hub &middot; <a href="contact.html">Contact Us</a> &middot; <a
+                    href="feedback.html">Send Feedback</a></p>
+        </footer>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            // Show selected tab and mark button as active
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+    </script>
+
+</body>
+
+</html>
