@@ -1,359 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Student Hub - Dashboard</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html,
-        body {
-            height: 100%;
-        }
-
-        body {
-            background: #eaeaea;
-            font-family: Arial, sans-serif;
-            color: #111;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 0;
-        }
-
-        .page-wrapper {
-            max-width: none;
-            width: 100%;
-            background: #fff;
-            border-radius: 0;
-            box-shadow: none;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            padding: 20px 36px 0;
-        }
-
-        .main-content {
-            flex: 1 0 auto;
-        }
-
-        a {
-            text-decoration: none;
-            color: #111;
-        }
-
-        h1,
-        h2,
-        h3 {
-            font-weight: 600;
-            color: #111;
-            margin-bottom: 6px;
-        }
-
-        p {
-            color: #333;
-            line-height: 1.5;
-        }
-
-        .text-muted {
-            color: #555;
-        }
-
-        .navbar {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0 14px;
-            border-bottom: 1px solid #d4d4d4;
-            margin-bottom: 28px;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 1.6rem;
-            font-weight: 700;
-            background: #f4f4f4;
-            padding: 2px 14px 2px 10px;
-            border-radius: 30px;
-            border: 1px solid #d4d4d4;
-        }
-
-        .logo {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .logo img {
-            width: 100%;
-            height: 100%;
-            border-radius: 8px;
-            object-fit: cover;
-        }
-
-        .nav-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px 16px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            font-size: 0.95rem;
-            padding: 4px 0;
-            border-bottom: 2px solid transparent;
-        }
-
-        .nav-links a:hover {
-            border-bottom-color: #111;
-        }
-
-        .card,
-        .panel {
-            background: #fff;
-            border: 1px solid #d4d4d4;
-            border-radius: 14px;
-            padding: 18px 16px;
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 18px;
-        }
-
-        .grid-4 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 14px;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 10px;
-            border-bottom: 2px solid #d4d4d4;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .tab-button {
-            padding: 10px 20px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: #666;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
-        }
-
-        .tab-button:hover {
-            color: #111;
-        }
-
-        .tab-button.active {
-            color: #111;
-            border-bottom-color: #111;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-
-        th {
-            background-color: #f4f4f4;
-            padding: 12px;
-            text-align: left;
-            font-weight: 600;
-            border-bottom: 2px solid #d4d4d4;
-        }
-
-        td {
-            padding: 12px;
-            border-bottom: 1px solid #eee;
-        }
-
-        tr:hover {
-            background-color: #f9f9f9;
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .status-present {
-            background-color: #d4edda;
-            color: #155724;
-        }
-
-        .status-absent {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-
-        .status-pending {
-            background-color: #fff3cd;
-            color: #856404;
-        }
-
-        .status-submitted {
-            background-color: #d4edda;
-            color: #155724;
-        }
-
-        .status-overdue {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-
-        .assignment-item {
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            border-left: 4px solid #667eea;
-        }
-
-        .note-card {
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            border-top: 4px solid #667eea;
-        }
-
-        .notice-item {
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            border-left: 4px solid #667eea;
-        }
-
-        .footer {
-            flex-shrink: 0;
-            margin-top: 32px;
-            padding: 16px 0 18px;
-            border-top: 1px solid #d4d4d4;
-            text-align: center;
-            color: #555;
-            font-size: 0.9rem;
-            background: #fff;
-        }
-
-        .footer a {
-            color: #111;
-            text-decoration: underline;
-        }
-
-        .badge {
-            background: #d4d4d4;
-            padding: 2px 10px;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-
-        ul {
-            list-style: none;
-        }
-
-        ul li {
-            padding: 6px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .profile-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .profile-card {
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid #d4d4d4;
-        }
-
-        .profile-card strong {
-            display: block;
-            color: #667eea;
-            margin-bottom: 5px;
-        }
-
-        @media (min-width: 1100px) {
-            .page-wrapper {
-                padding: 28px 52px 0;
-            }
-
-            .navbar {
-                padding: 14px 0 20px;
-            }
-
-            .brand {
-                font-size: 2rem;
-            }
-
-            .grid-2,
-            .grid-4 {
-                gap: 22px;
-            }
-
-            .card,
-            .panel {
-                padding: 22px 20px;
-            }
-        }
-
-        @media (max-width: 700px) {
-            .navbar {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 6px;
-            }
-
-            .page-wrapper {
-                padding: 15px 15px 0;
-            }
-
-            .tabs {
-                gap: 5px;
-            }
-
-            .tab-button {
-                padding: 8px 12px;
-                font-size: 0.85rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="../styles/dashboard.css">
 </head>
 
 <body>
@@ -391,14 +43,14 @@
             </div>
 
             <div class="tabs">
-                <button class="tab-button active" onclick="showTab('overview')">📊 Overview</button>
-                <button class="tab-button" onclick="showTab('attendance')">📋 Attendance</button>
-                <button class="tab-button" onclick="showTab('assignments')">📝 Assignments</button>
-                <button class="tab-button" onclick="showTab('notes')">📚 Notes</button>
-                <button class="tab-button" onclick="showTab('timetable')">📅 Timetable</button>
-                <button class="tab-button" onclick="showTab('results')">📊 Results</button>
-                <button class="tab-button" onclick="showTab('notice')">📢 Notice Board</button>
-                <button class="tab-button" onclick="showTab('profile')">👤 Profile</button>
+                <button class="tab-button active" onclick="showTab('overview')">ðŸ“Š Overview</button>
+                <button class="tab-button" onclick="showTab('attendance')">ðŸ“‹ Attendance</button>
+                <button class="tab-button" onclick="showTab('assignments')">ðŸ“ Assignments</button>
+                <button class="tab-button" onclick="showTab('notes')">ðŸ“š Notes</button>
+                <button class="tab-button" onclick="showTab('timetable')">ðŸ“… Timetable</button>
+                <button class="tab-button" onclick="showTab('results')">ðŸ“Š Results</button>
+                <button class="tab-button" onclick="showTab('notice')">ðŸ“¢ Notice Board</button>
+                <button class="tab-button" onclick="showTab('profile')">ðŸ‘¤ Profile</button>
             </div>
 
             <!-- Overview Tab -->
@@ -451,25 +103,25 @@
                             <tr>
                                 <td>Aug 10, 2024</td>
                                 <td>Mathematics</td>
-                                <td><span class="status-badge status-present">✓ Present</span></td>
+                                <td><span class="status-badge status-present">âœ“ Present</span></td>
                                 <td>-</td>
                             </tr>
                             <tr>
                                 <td>Aug 10, 2024</td>
                                 <td>English</td>
-                                <td><span class="status-badge status-present">✓ Present</span></td>
+                                <td><span class="status-badge status-present">âœ“ Present</span></td>
                                 <td>-</td>
                             </tr>
                             <tr>
                                 <td>Aug 9, 2024</td>
                                 <td>Science</td>
-                                <td><span class="status-badge status-absent">✗ Absent</span></td>
+                                <td><span class="status-badge status-absent">âœ— Absent</span></td>
                                 <td>Medical Leave</td>
                             </tr>
                             <tr>
                                 <td>Aug 9, 2024</td>
                                 <td>History</td>
-                                <td><span class="status-badge status-present">✓ Present</span></td>
+                                <td><span class="status-badge status-present">âœ“ Present</span></td>
                                 <td>-</td>
                             </tr>
                         </tbody>
@@ -516,7 +168,7 @@
                     <p style="margin-top: 8px;">Comprehensive notes on differential calculus including rules,
                         applications, and problem-solving techniques.</p>
                     <p class="text-muted" style="font-size: 0.85rem; margin-top: 8px;">Added: Aug 8, 2024 | <a href="#"
-                            style="color: #667eea;">📥 Download PDF</a></p>
+                            style="color: #667eea;">ðŸ“¥ Download PDF</a></p>
                 </div>
 
                 <div class="note-card">
@@ -525,7 +177,7 @@
                     <p style="margin-top: 8px;">Detailed guide on analyzing literature, thesis statements, and writing
                         effective academic essays.</p>
                     <p class="text-muted" style="font-size: 0.85rem; margin-top: 8px;">Added: Aug 7, 2024 | <a href="#"
-                            style="color: #667eea;">📥 Download PDF</a></p>
+                            style="color: #667eea;">ðŸ“¥ Download PDF</a></p>
                 </div>
 
                 <div class="note-card">
@@ -534,7 +186,7 @@
                     <p style="margin-top: 8px;">Notes covering cell structure, function, mitosis, meiosis, and cellular
                         processes with diagrams.</p>
                     <p class="text-muted" style="font-size: 0.85rem; margin-top: 8px;">Added: Aug 6, 2024 | <a href="#"
-                            style="color: #667eea;">📥 Download PDF</a></p>
+                            style="color: #667eea;">ðŸ“¥ Download PDF</a></p>
                 </div>
 
                 <div class="note-card">
@@ -543,7 +195,7 @@
                     <p style="margin-top: 8px;">Complete study notes on feudalism, kingdoms, and significant events
                         during the medieval period.</p>
                     <p class="text-muted" style="font-size: 0.85rem; margin-top: 8px;">Added: Aug 5, 2024 | <a href="#"
-                            style="color: #667eea;">📥 Download PDF</a></p>
+                            style="color: #667eea;">ðŸ“¥ Download PDF</a></p>
                 </div>
             </div>
 
@@ -580,7 +232,7 @@
                                 <td>English<br><small>Room 205</small></td>
                             </tr>
                             <tr style="background-color: #fff3cd;">
-                                <td colspan="6" style="text-align: center; font-style: italic;">☕ Break (10:00 - 10:15)
+                                <td colspan="6" style="text-align: center; font-style: italic;">â˜• Break (10:00 - 10:15)
                                 </td>
                             </tr>
                             <tr>
@@ -745,10 +397,10 @@
                 <div class="panel" style="margin-top: 20px;">
                     <h3>Account Settings</h3>
                     <ul>
-                        <li><a href="#" style="color: #667eea;">✏️ Edit Profile</a></li>
-                        <li><a href="#" style="color: #667eea;">🔐 Change Password</a></li>
-                        <li><a href="#" style="color: #667eea;">📧 Update Email Preferences</a></li>
-                        <li><a href="logout.html" style="color: #667eea;">🚪 Logout</a></li>
+                        <li><a href="#" style="color: #667eea;">âœï¸ Edit Profile</a></li>
+                        <li><a href="#" style="color: #667eea;">ðŸ” Change Password</a></li>
+                        <li><a href="#" style="color: #667eea;">ðŸ“§ Update Email Preferences</a></li>
+                        <li><a href="logout.html" style="color: #667eea;">ðŸšª Logout</a></li>
                     </ul>
                 </div>
             </div>
