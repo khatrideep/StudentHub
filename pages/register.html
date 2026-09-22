@@ -17,17 +17,87 @@
         <h1>Register</h1>
         <p class="text-muted">Create your Student Hub account.</p>
 
-        <form>
+        <form id="studentRegisterForm" novalidate>
             <div class="two-col">
-                <div class="form-group"><label>Full name</label><input type="text" placeholder="Name" /></div>
-                <div class="form-group"><label>Mobile</label><input type="tel" placeholder="+91" /></div>
+                <div class="form-group">
+                    <label for="fullName">Full name</label>
+                    <input id="fullName" name="fullName" type="text" placeholder="Enter your name" required />
+                    <span class="error-message" id="fullNameError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="mobile">Mobile</label>
+                    <input id="mobile" name="mobile" type="tel" placeholder="+91 9876543210" required />
+                    <span class="error-message" id="mobileError"></span>
+                </div>
             </div>
-            <div class="form-group"><label>Email</label><input type="email" placeholder="Email" /></div>
-            <div class="form-group"><label>Date of birth</label><input type="date" /></div>
-            <div class="form-group"><label>Password</label><input type="password" placeholder="Create password" /></div>
-            <div class="form-group"><label>Confirm password</label><input type="password" placeholder="Confirm" /></div>
-            <label style="font-weight:400; margin-bottom:12px; display:flex; gap:8px;"><input type="checkbox" /> I agree
-                to terms</label>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" placeholder="you@example.com" required />
+                <span class="error-message" id="emailError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="dob">Date of birth</label>
+                <input id="dob" name="dob" type="date" required />
+                <span class="error-message" id="dobError"></span>
+            </div>
+
+            <div class="two-col">
+                <div class="form-group">
+                    <label for="course">Course</label>
+                    <select id="course" name="course" required>
+                        <option value="">Select course</option>
+                        <option value="BCA">BCA</option>
+                        <option value="BSc Computer Science">BSc Computer Science</option>
+                        <option value="BBA">BBA</option>
+                        <option value="BCom">BCom</option>
+                        <option value="BA">BA</option>
+                    </select>
+                    <span class="error-message" id="courseError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="year">Year</label>
+                    <select id="year" name="year" required>
+                        <option value="">Select year</option>
+                        <option value="1st Year">1st Year</option>
+                        <option value="2nd Year">2nd Year</option>
+                        <option value="3rd Year">3rd Year</option>
+                        <option value="4th Year">4th Year</option>
+                    </select>
+                    <span class="error-message" id="yearError"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Gender</label>
+                <div class="gender-group">
+                    <label class="radio-option"><input type="radio" name="gender" value="Male" required /> Male</label>
+                    <label class="radio-option"><input type="radio" name="gender" value="Female" /> Female</label>
+                    <label class="radio-option"><input type="radio" name="gender" value="Other" /> Other</label>
+                </div>
+                <span class="error-message" id="genderError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" placeholder="Create password" required />
+                <span class="error-message" id="passwordError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirm password</label>
+                <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm password" required />
+                <span class="error-message" id="confirmPasswordError"></span>
+            </div>
+
+            <label class="terms-label">
+                <input id="terms" name="terms" type="checkbox" required />
+                I agree to the terms and conditions
+            </label>
+            <span class="error-message" id="termsError"></span>
+
             <button type="submit" class="btn">Register</button>
         </form>
 
@@ -37,6 +107,184 @@
             <p>&copy; 2026 Student Hub</p>
         </footer>
     </div>
+
+    <script>
+        const form = document.getElementById('studentRegisterForm');
+
+        const rules = {
+            fullName: {
+                pattern: /^[A-Za-z\s]{2,50}$/,
+                message: 'Name must contain only letters and spaces, with at least 2 characters.'
+            },
+            email: {
+                pattern: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/, 
+                message: 'Please enter a valid email address.'
+            },
+            mobile: {
+                pattern: /^\+?[0-9]{10,15}$/,
+                message: 'Mobile number must be 10 to 15 digits, optional + sign.'
+            },
+            password: {
+                pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@#$%^&*!_~]{8,16}$/,
+                message: 'Password must be 8-16 characters with letters and numbers.'
+            }
+        };
+
+        function setError(fieldId, message) {
+            const input = document.getElementById(fieldId);
+            const error = document.getElementById(fieldId + 'Error');
+            if (error) {
+                error.textContent = message;
+            }
+            if (input) {
+                input.classList.toggle('input-error', Boolean(message));
+            }
+        }
+
+        function validateName() {
+            const value = document.getElementById('fullName').value.trim();
+            if (!value) {
+                setError('fullName', 'Full name is required.');
+                return false;
+            }
+            if (!rules.fullName.pattern.test(value)) {
+                setError('fullName', rules.fullName.message);
+                return false;
+            }
+            setError('fullName', '');
+            return true;
+        }
+
+        function validateEmail() {
+            const value = document.getElementById('email').value.trim();
+            if (!value) {
+                setError('email', 'Email is required.');
+                return false;
+            }
+            if (!rules.email.pattern.test(value)) {
+                setError('email', rules.email.message);
+                return false;
+            }
+            setError('email', '');
+            return true;
+        }
+
+        function validateMobile() {
+            const value = document.getElementById('mobile').value.trim();
+            if (!value) {
+                setError('mobile', 'Mobile number is required.');
+                return false;
+            }
+            if (!rules.mobile.pattern.test(value)) {
+                setError('mobile', rules.mobile.message);
+                return false;
+            }
+            setError('mobile', '');
+            return true;
+        }
+
+        function validateCourse() {
+            const value = document.getElementById('course').value;
+            if (!value) {
+                setError('course', 'Please select your course.');
+                return false;
+            }
+            setError('course', '');
+            return true;
+        }
+
+        function validateYear() {
+            const value = document.getElementById('year').value;
+            if (!value) {
+                setError('year', 'Please select your year.');
+                return false;
+            }
+            setError('year', '');
+            return true;
+        }
+
+        function validateGender() {
+            const selected = document.querySelector('input[name="gender"]:checked');
+            if (!selected) {
+                setError('gender', 'Please select your gender.');
+                return false;
+            }
+            setError('gender', '');
+            return true;
+        }
+
+        function validatePassword() {
+            const value = document.getElementById('password').value;
+            if (!value) {
+                setError('password', 'Password is required.');
+                return false;
+            }
+            if (!rules.password.pattern.test(value)) {
+                setError('password', rules.password.message);
+                return false;
+            }
+            setError('password', '');
+            return true;
+        }
+
+        function validateConfirmPassword() {
+            const password = document.getElementById('password').value;
+            const confirm = document.getElementById('confirmPassword').value;
+            if (!confirm) {
+                setError('confirmPassword', 'Please confirm your password.');
+                return false;
+            }
+            if (password !== confirm) {
+                setError('confirmPassword', 'Passwords do not match.');
+                return false;
+            }
+            setError('confirmPassword', '');
+            return true;
+        }
+
+        function validateTerms() {
+            const checked = document.getElementById('terms').checked;
+            if (!checked) {
+                setError('terms', 'You must accept the terms and conditions.');
+                return false;
+            }
+            setError('terms', '');
+            return true;
+        }
+
+        document.getElementById('fullName').addEventListener('blur', validateName);
+        document.getElementById('email').addEventListener('blur', validateEmail);
+        document.getElementById('mobile').addEventListener('blur', validateMobile);
+        document.getElementById('course').addEventListener('change', validateCourse);
+        document.getElementById('year').addEventListener('change', validateYear);
+        document.querySelectorAll('input[name="gender"]').forEach((radio) => {
+            radio.addEventListener('change', validateGender);
+        });
+        document.getElementById('password').addEventListener('blur', validatePassword);
+        document.getElementById('confirmPassword').addEventListener('blur', validateConfirmPassword);
+        document.getElementById('terms').addEventListener('change', validateTerms);
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const isValid = [
+                validateName(),
+                validateEmail(),
+                validateMobile(),
+                validateCourse(),
+                validateYear(),
+                validateGender(),
+                validatePassword(),
+                validateConfirmPassword(),
+                validateTerms()
+            ].every(Boolean);
+
+            if (isValid) {
+                alert('Registration successful!');
+                form.reset();
+            }
+        });
+    </script>
 
 </body>
 

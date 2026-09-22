@@ -86,10 +86,45 @@
             margin-bottom: 14px;
         }
 
+        .input-error {
+            border-color: #d93025 !important;
+            background: #fff6f6;
+        }
+
+        .error-message {
+            display: block;
+            min-height: 18px;
+            margin-top: 6px;
+            color: #d93025;
+            font-size: 0.78rem;
+        }
+
         .two-col {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
+        }
+
+        .gender-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 8px;
+        }
+
+        .radio-option {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 400;
+        }
+
+        .terms-label {
+            font-weight: 400;
+            margin-bottom: 12px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
         }
 
         .footer-text {

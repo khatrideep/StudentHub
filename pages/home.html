@@ -10,12 +10,20 @@
 
 <body>
 
+    <div class="notification-banner" role="status" aria-live="polite">
+        <span>Academic counseling sessions are available this week. Reserve your slot now.</span>
+        <button class="close-banner" type="button" aria-label="Close notification">×</button>
+    </div>
+
     <div class="page-wrapper">
         <div class="main-content">
 
             <header class="navbar">
                 <a href="../index.html" class="brand"><div class="logo"><img src="../logo.jpeg" alt="Student Hub Logo" /></div>Student Hub</a>
-                <ul class="nav-links">
+                <button class="hamburger" type="button" aria-label="Open navigation menu" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+                <ul class="nav-links" id="main-nav">
                     <li><a href="home.html">Home</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="events.html">Events</a></li>
@@ -26,6 +34,7 @@
                     <li><a href="login.html">Login</a></li>
                     <li><a href="register.html">Register</a></li>
                 </ul>
+                <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">Dark mode</button>
             </header>
 
             <section class="hero">
@@ -35,7 +44,7 @@
                         notices, event updates, academic guidance, and support.</p>
                     <div class="inline-flex">
                         <a href="events.html" class="btn">View Events</a>
-                        <a href="dashboard.html" class="btn btn-outline">Open Dashboard</a>
+                        <button class="btn btn-outline" type="button" data-open-modal="student-modal">Open guide</button>
                     </div>
                 </div>
                 <div class="hero-panel">
@@ -45,6 +54,44 @@
                         <div class="stat-item"><strong>09</strong><span>New notices</span></div>
                         <div class="stat-item"><strong>2h</strong><span>Workshop time</span></div>
                     </div>
+                </div>
+            </section>
+
+            <section class="slider-section" aria-label="Campus highlights">
+                <div class="slider">
+                    <article class="slide is-active">
+                        <div class="slide-copy">
+                            <span>Student life</span>
+                            <h2>Join campus events</h2>
+                            <p>Participate in workshops, networking events, and peer-led experiences across the semester.</p>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80" alt="Students at a college event" />
+                    </article>
+                    <article class="slide">
+                        <div class="slide-copy">
+                            <span>Progress</span>
+                            <h2>Track your goals</h2>
+                            <p>Monitor important notices, milestones, and committee updates with the dashboard tools.</p>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80" alt="Students studying together" />
+                    </article>
+                    <article class="slide">
+                        <div class="slide-copy">
+                            <span>Feedback</span>
+                            <h2>Share ideas</h2>
+                            <p>Send suggestions and help improve the learning environment for everyone on campus.</p>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=80" alt="Students in a discussion" />
+                    </article>
+                </div>
+                <div class="slider-controls">
+                    <button class="slider-btn slider-prev" type="button" aria-label="Previous slide">←</button>
+                    <div class="slider-dots" aria-label="Select slide">
+                        <button class="slider-dot is-active" type="button" aria-label="Show slide 1"></button>
+                        <button class="slider-dot" type="button" aria-label="Show slide 2"></button>
+                        <button class="slider-dot" type="button" aria-label="Show slide 3"></button>
+                    </div>
+                    <button class="slider-btn slider-next" type="button" aria-label="Next slide">→</button>
                 </div>
             </section>
 
@@ -68,12 +115,41 @@
                 </div>
             </div>
 
+            <section class="faq-section">
+                <h2>Frequently asked questions</h2>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <button class="faq-question" type="button" aria-expanded="false">Can I access my dashboard from mobile?<span>+</span></button>
+                        <div class="faq-answer" hidden>
+                            Yes. The dashboard is designed to work on desktop and mobile devices with responsive layouts and quick navigation.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" type="button" aria-expanded="false">How do I contact the support team?<span>+</span></button>
+                        <div class="faq-answer" hidden>
+                            Use the contact page or the feedback form to reach out for assistance, event help, or technical support.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
         </div>
 
         <footer class="footer">
             <p>&copy; 2026 Student Hub &middot; <a href="contact.html">Contact Us</a></p>
         </footer>
     </div>
+
+    <div class="modal-backdrop" data-modal aria-hidden="true">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="student-modal-title">
+            <button class="modal-close" type="button" data-close-modal aria-label="Close dialog">×</button>
+            <h3 id="student-modal-title">Student support</h3>
+            <p>From notice boards to event registration, Student Hub helps you stay organized and connected.</p>
+            <a href="register.html" class="btn">Join now</a>
+        </div>
+    </div>
+
+    <script src="../js/theme.js"></script>
 
 </body>
 

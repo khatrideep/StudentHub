@@ -141,6 +141,19 @@
             max-width: none;
         }
 
+        .faq-question {
+            cursor: pointer;
+        }
+
+        .faq-question:focus-visible {
+            outline: 3px solid #8ab4f8;
+            outline-offset: 2px;
+        }
+
+        .faq-answer[hidden] {
+            display: none;
+        }
+
         @media (min-width: 1100px) {
             .page-wrapper {
                 padding: 28px 52px 0;
