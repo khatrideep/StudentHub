@@ -43,6 +43,16 @@
             margin-bottom: 20px;
         }
 
+        .auth-message {
+            margin: 0 0 16px;
+            padding: 10px 12px;
+            border: 1px solid #d93025;
+            border-radius: 8px;
+            background: #fff6f6;
+            color: #a50e0e;
+            font-size: 0.9rem;
+        }
+
         a {
             text-decoration: none;
             color: #111;

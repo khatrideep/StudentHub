@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Student Hub - Home</title>
     <link rel="stylesheet" href="../styles/home.css">
+    <link rel="stylesheet" href="../styles/site.css">
 </head>
 
-<body>
+<body class="site-page">
 
     <div class="notification-banner" role="status" aria-live="polite">
         <span>Academic counseling sessions are available this week. Reserve your slot now.</span>
@@ -26,11 +27,11 @@
                 <ul class="nav-links" id="main-nav">
                     <li><a href="home.html">Home</a></li>
                     <li><a href="about.html">About</a></li>
-                    <li><a href="events.html">Events</a></li>
-                    <li><a href="dashboard.html">Dashboard</a></li>
-                    <li><a href="admin.html">Admin</a></li>
+                    <li><a href="events.php">Events</a></li>
+                    <li><a href="dashboard.php">Dashboard</a></li>
+                    <li><a href="admin.php">Admin</a></li>
                     <li><a href="feedback.html">Feedback</a></li>
-                    <li><a href="faqs.html">FAQs</a></li>
+                    <li><a href="faqs.php">FAQs</a></li>
                     <li><a href="login.html">Login</a></li>
                     <li><a href="register.html">Register</a></li>
                 </ul>
@@ -43,16 +44,16 @@
                     <p style="color:#444; margin-bottom: 16px;">Student Hub keeps learners connected with campus
                         notices, event updates, academic guidance, and support.</p>
                     <div class="inline-flex">
-                        <a href="events.html" class="btn">View Events</a>
+                        <a href="events.php" class="btn">View Events</a>
                         <button class="btn btn-outline" type="button" data-open-modal="student-modal">Open guide</button>
                     </div>
                 </div>
                 <div class="hero-panel">
                     <h3 style="margin-bottom: 8px;">Today at a glance</h3>
                     <div class="stat-grid">
-                        <div class="stat-item"><strong>04</strong><span>Upcoming events</span></div>
-                        <div class="stat-item"><strong>09</strong><span>New notices</span></div>
-                        <div class="stat-item"><strong>2h</strong><span>Workshop time</span></div>
+                        <div class="stat-item"><strong data-home-stat="events">—</strong><span>Upcoming events</span></div>
+                        <div class="stat-item"><strong data-home-stat="notices">—</strong><span>Current notices</span></div>
+                        <div class="stat-item"><strong data-home-stat="nextEvent">—</strong><span>Next event</span></div>
                     </div>
                 </div>
             </section>
@@ -149,7 +150,8 @@
         </div>
     </div>
 
-    <script src="../js/theme.js"></script>
+    <script src="../js/theme.js?v=2"></script>
+    <script src="../js/home-stats.js"></script>
 
 </body>
 

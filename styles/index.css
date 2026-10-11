@@ -1,4 +1,4 @@
-﻿
+
         :root {
             --bg-soft: #eef2f7;
             --bg-page: linear-gradient(135deg, #f5f7fb 0%, #edf2f8 100%);
@@ -47,12 +47,12 @@
             overflow: hidden;
         }
 
-        /* main content area grows to push footer */
+
         .main-content {
             flex: 1 0 auto;
         }
 
-        /* ----- TYPOGRAPHY & LINKS ----- */
+
         a {
             text-decoration: none;
             color: #111;
@@ -75,7 +75,7 @@
             color: #555;
         }
 
-        /* ----- HEADER / NAV ----- */
+
         .navbar {
             display: flex;
             flex-wrap: wrap;
@@ -165,7 +165,7 @@
             cursor: pointer;
         }
 
-        /* ----- BUTTONS ----- */
+
         .btn {
             display: inline-block;
             background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
@@ -197,7 +197,7 @@
             transform: translateY(-1px);
         }
 
-        /* ----- CARDS & PANELS ----- */
+
         .card,
         .panel {
             background: var(--panel);
@@ -217,7 +217,7 @@
             background: var(--panel-alt);
         }
 
-        /* ----- GRIDS ----- */
+
         .grid-2 {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -236,7 +236,7 @@
             gap: 14px;
         }
 
-        /* ----- HERO ----- */
+
         .hero {
             display: grid;
             grid-template-columns: 1.2fr 0.9fr;
@@ -284,7 +284,7 @@
             color: var(--text);
         }
 
-        /* ----- TABLES ----- */
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -314,7 +314,7 @@
             display: inline-block;
         }
 
-        /* ----- FORMS ----- */
+
         input,
         textarea,
         select {
@@ -342,7 +342,7 @@
             margin-bottom: 12px;
         }
 
-        /* ----- FOOTER (sticky) ----- */
+
         .footer {
             flex-shrink: 0;
             margin-top: 32px;
@@ -359,7 +359,7 @@
             text-decoration: underline;
         }
 
-        /* ----- UTILITY ----- */
+
         .inline-flex {
             display: flex;
             gap: 10px;
@@ -619,7 +619,7 @@
             cursor: pointer;
         }
 
-        /* ----- RESPONSIVE ----- */
+
         @media (min-width: 1100px) {
             .page-wrapper {
                 padding: 28px 52px 0;
@@ -722,4 +722,4 @@
                 padding: 15px 15px 0;
             }
         }
-    
+

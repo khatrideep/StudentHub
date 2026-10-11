@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Student Hub - Register</title>
     <link rel="stylesheet" href="../styles/register.css">
+    <link rel="stylesheet" href="../styles/site.css">
 </head>
 
-<body>
+<body class="auth-page auth-register">
 
     <div class="page-wrapper">
         <div style="text-align: center; margin-bottom: 20px;">
@@ -16,8 +17,9 @@
         </div>
         <h1>Register</h1>
         <p class="text-muted">Create your Student Hub account.</p>
+        <p id="authMessage" class="auth-message" role="alert" hidden></p>
 
-        <form id="studentRegisterForm" novalidate>
+        <form id="studentRegisterForm" action="register.php" method="post" data-csrf novalidate>
             <div class="two-col">
                 <div class="form-group">
                     <label for="fullName">Full name</label>
@@ -113,8 +115,8 @@
 
         const rules = {
             fullName: {
-                pattern: /^[A-Za-z\s]{2,50}$/,
-                message: 'Name must contain only letters and spaces, with at least 2 characters.'
+                pattern: /^[\p{L}][\p{L}\s'-]{1,99}$/u,
+                message: 'Enter a name between 2 and 100 letters, spaces, apostrophes, or hyphens.'
             },
             email: {
                 pattern: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/, 
@@ -265,8 +267,6 @@
         document.getElementById('terms').addEventListener('change', validateTerms);
 
         form.addEventListener('submit', function (event) {
-            event.preventDefault();
-
             const isValid = [
                 validateName(),
                 validateEmail(),
@@ -279,12 +279,26 @@
                 validateTerms()
             ].every(Boolean);
 
-            if (isValid) {
-                alert('Registration successful!');
-                form.reset();
+            if (!isValid) {
+                event.preventDefault();
             }
         });
+
+        const registrationMessages = {
+            invalid: 'Please check your details and try again.',
+            email_taken: 'An account with this email already exists. Please log in instead.',
+            password_mismatch: 'The passwords do not match.',
+            terms: 'You must accept the terms and conditions.',
+            database: 'Registration is temporarily unavailable. Please try again later.'
+        };
+        const registrationError = new URLSearchParams(window.location.search).get('error');
+        const authMessage = document.getElementById('authMessage');
+        if (registrationMessages[registrationError]) {
+            authMessage.textContent = registrationMessages[registrationError];
+            authMessage.hidden = false;
+        }
     </script>
+    <script src="../js/form-security.js"></script>
 
 </body>
 

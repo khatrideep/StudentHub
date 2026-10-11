@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "title": "Science Fair",
+    "date": "2026-08-15",
+    "category": "Academic",
+    "description": "Explore science innovations, lab demos, and project displays across departments.",
+    "venue": "Main Auditorium",
+    "seatsLeft": 18
+  },
+  {
+    "id": 2,
+    "title": "Sports Day",
+    "date": "2026-08-20",
+    "category": "Sports",
+    "description": "A campus-wide sports festival with track events, team games, and student competitions.",
+    "venue": "Sports Ground",
+    "seatsLeft": 42
+  },
+  {
+    "id": 3,
+    "title": "Cultural Fest",
+    "date": "2026-09-05",
+    "category": "Cultural",
+    "description": "Dance, music, fashion, and cultural performances presented by student clubs.",
+    "venue": "Open Stage",
+    "seatsLeft": 25
+  },
+  {
+    "id": 4,
+    "title": "Career Guidance Seminar",
+    "date": "2026-09-12",
+    "category": "Career",
+    "description": "Meet industry professionals and learn career planning, internships, and placement guidance.",
+    "venue": "Seminar Hall",
+    "seatsLeft": 16
+  },
+  {
+    "id": 5,
+    "title": "Hackathon 2026",
+    "date": "2026-09-18",
+    "category": "Technology",
+    "description": "Build prototypes, collaborate in teams, and showcase smart solutions to real campus problems.",
+    "venue": "Innovation Lab",
+    "seatsLeft": 8
+  },
+  {
+    "id": 6,
+    "title": "Leadership Summit",
+    "date": "2026-10-02",
+    "category": "Leadership",
+    "description": "A student leadership summit focused on communication, teamwork, and campus leadership.",
+    "venue": "Conference Center",
+    "seatsLeft": 30
+  }
+]

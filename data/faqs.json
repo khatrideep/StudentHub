@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "question": "How do I register?",
+    "answer": "Visit the Register page, fill in your personal details, and create your account."
+  },
+  {
+    "id": 2,
+    "question": "Where can I find event updates?",
+    "answer": "The Events page lists all upcoming workshops, celebrations, and student events."
+  },
+  {
+    "id": 3,
+    "question": "How can I send feedback?",
+    "answer": "Use the Feedback page to submit ideas or concerns to the admin team."
+  },
+  {
+    "id": 4,
+    "question": "Can I access notices from one place?",
+    "answer": "Yes, the Dashboard brings key notices and updates together in one view."
+  },
+  {
+    "id": 5,
+    "question": "Do I need to log in to view events?",
+    "answer": "No, all public event information is available without requiring a login."
+  },
+  {
+    "id": 6,
+    "question": "What if I forget my password?",
+    "answer": "Use the password reset option in the login page or contact the support team."
+  }
+]

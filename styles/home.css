@@ -1,4 +1,4 @@
-﻿
+
         * {
             margin: 0;
             padding: 0;
@@ -36,7 +36,7 @@
             flex: 1 0 auto;
         }
 
-        /* ----- TYPOGRAPHY & LINKS ----- */
+
         a {
             text-decoration: none;
             color: #111;
@@ -59,7 +59,7 @@
             color: #555;
         }
 
-        /* ----- HEADER / NAV ----- */
+
         .navbar {
             display: flex;
             flex-wrap: wrap;
@@ -145,7 +145,7 @@
             cursor: pointer;
         }
 
-        /* ----- BUTTONS ----- */
+
         .btn {
             display: inline-block;
             background: #111;
@@ -174,7 +174,7 @@
             border-color: #2b2b2b;
         }
 
-        /* ----- CARDS ----- */
+
         .card {
             background: #fff;
             border: 1px solid #d4d4d4;
@@ -194,7 +194,7 @@
             gap: 14px;
         }
 
-        /* ----- HERO ----- */
+
         .hero {
             display: grid;
             grid-template-columns: 1.2fr 0.9fr;
@@ -239,7 +239,7 @@
             color: #111;
         }
 
-        /* ----- FOOTER (sticky) ----- */
+
         .footer {
             flex-shrink: 0;
             margin-top: 32px;
@@ -611,4 +611,4 @@
                 padding: 15px 15px 0;
             }
         }
-    
+

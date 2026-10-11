@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "name": "Ram Kumar",
+    "program": "BSc Computer Science",
+    "year": "2nd Year",
+    "email": "ramkumar@studenthub.edu",
+    "city": "Pune"
+  },
+  {
+    "id": 2,
+    "name": "Aisha Shah",
+    "program": "BBA",
+    "year": "1st Year",
+    "email": "aisha.shah@studenthub.edu",
+    "city": "Mumbai"
+  },
+  {
+    "id": 3,
+    "name": "Neha Verma",
+    "program": "BCA",
+    "year": "3rd Year",
+    "email": "neha.verma@studenthub.edu",
+    "city": "Delhi"
+  },
+  {
+    "id": 4,
+    "name": "Karan Mehta",
+    "program": "BCom",
+    "year": "2nd Year",
+    "email": "karan.mehta@studenthub.edu",
+    "city": "Ahmedabad"
+  },
+  {
+    "id": 5,
+    "name": "Sonia Patel",
+    "program": "BA",
+    "year": "4th Year",
+    "email": "sonia.patel@studenthub.edu",
+    "city": "Surat"
+  },
+  {
+    "id": 6,
+    "name": "Arjun Singh",
+    "program": "BSc Computer Science",
+    "year": "1st Year",
+    "email": "arjun.singh@studenthub.edu",
+    "city": "Jaipur"
+  },
+  {
+    "id": 7,
+    "name": "Priya Nair",
+    "program": "BCA",
+    "year": "2nd Year",
+    "email": "priya.nair@studenthub.edu",
+    "city": "Kochi"
+  },
+  {
+    "id": 8,
+    "name": "Vikram Joshi",
+    "program": "BBA",
+    "year": "3rd Year",
+    "email": "vikram.joshi@studenthub.edu",
+    "city": "Nagpur"
+  }
+]

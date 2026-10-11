@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Student Hub - Feedback</title>
     <link rel="stylesheet" href="../styles/feedback.css">
+    <link rel="stylesheet" href="../styles/site.css">
 </head>
 
-<body>
+<body class="site-page">
 
     <div class="page-wrapper">
         <div class="main-content">
@@ -18,11 +19,11 @@
                 <ul class="nav-links">
                     <li><a href="home.html">Home</a></li>
                     <li><a href="about.html">About</a></li>
-                    <li><a href="events.html">Events</a></li>
-                    <li><a href="dashboard.html">Dashboard</a></li>
-                    <li><a href="admin.html">Admin</a></li>
+                    <li><a href="events.php">Events</a></li>
+                    <li><a href="dashboard.php">Dashboard</a></li>
+                    <li><a href="admin.php">Admin</a></li>
                     <li><a href="feedback.html">Feedback</a></li>
-                    <li><a href="faqs.html">FAQs</a></li>
+                    <li><a href="faqs.php">FAQs</a></li>
                     <li><a href="login.html">Login</a></li>
                     <li><a href="register.html">Register</a></li>
                 </ul>
@@ -32,19 +33,19 @@
                 <h1>Feedback</h1>
                 <p class="text-muted" style="margin-bottom: 16px;">Share your suggestions to improve services,
                     facilities, and campus experience.</p>
-                <form>
-                    <div class="form-group"><label>Name</label><input type="text" placeholder="Your name" /></div>
-                    <div class="form-group"><label>Email</label><input type="email" placeholder="Email" /></div>
-                    <div class="form-group"><label>Category</label><select>
-                            <option>Campus facility</option>
-                            <option>Academic</option>
-                            <option>Event</option>
+                <p id="formMessage" class="auth-message" role="status" hidden></p>
+                <form action="actions.php?action=feedback" method="post" data-csrf>
+                    <div class="form-group"><label for="feedbackName">Name</label><input id="feedbackName" name="name" type="text" maxlength="100" autocomplete="name" required /></div>
+                    <div class="form-group"><label for="feedbackEmail">Email</label><input id="feedbackEmail" name="email" type="email" maxlength="254" autocomplete="email" required /></div>
+                    <div class="form-group"><label for="feedbackCategory">Category</label><select id="feedbackCategory" name="category" required>
+                            <option value="Campus facility">Campus facility</option>
+                            <option value="Academic">Academic</option>
+                            <option value="Event">Event</option>
                         </select></div>
                     <div class="form-group"><label>Rating</label>
-                        <div class="rating-group"><span>5</span><span>4</span><span>3</span><span>2</span><span>1</span>
-                        </div>
+                        <select name="rating" aria-label="Rating" required><option value="">Select rating</option><option value="5">5 - Excellent</option><option value="4">4 - Good</option><option value="3">3 - Average</option><option value="2">2 - Poor</option><option value="1">1 - Very poor</option></select>
                     </div>
-                    <div class="form-group"><label>Message</label><textarea placeholder="Write feedback"></textarea>
+                    <div class="form-group"><label for="feedbackMessage">Message</label><textarea id="feedbackMessage" name="message" maxlength="10000" required placeholder="Write feedback"></textarea>
                     </div>
                     <button type="submit" class="btn">Send Feedback</button>
                 </form>
@@ -57,6 +58,19 @@
         </footer>
     </div>
 
+    <script src="../js/form-security.js"></script>
+    <script>
+        const formMessage = document.getElementById('formMessage');
+        const formStatus = new URLSearchParams(window.location.search);
+        if (formStatus.has('sent')) {
+            formMessage.textContent = 'Thanks. Your feedback has been saved.';
+        } else if (formStatus.has('error')) {
+            formMessage.textContent = formStatus.get('error') === 'database'
+                ? 'Feedback could not be saved. Please try again later.'
+                : 'Please check your details and try again.';
+        }
+        formMessage.hidden = !formMessage.textContent;
+    </script>
 </body>
 
 </html>

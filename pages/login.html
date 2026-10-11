@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Student Hub - Login</title>
     <link rel="stylesheet" href="../styles/login.css">
+    <link rel="stylesheet" href="../styles/site.css">
 </head>
 
-<body>
+<body class="auth-page">
 
     <div class="page-wrapper">
         <div style="text-align: center; margin-bottom: 20px;">
@@ -16,12 +17,12 @@
         </div>
         <h1>Login</h1>
         <p class="text-muted">Access your student portal dashboard.</p>
+        <p id="authMessage" class="auth-message" role="alert" hidden></p>
 
-        <form>
-            <div class="form-group"><label>Email</label><input type="email" placeholder="your@email.com" /></div>
-            <div class="form-group"><label>Password</label><input type="password" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" /></div>
-            <div class="flex-row"><label><input type="checkbox" /> Remember me</label><a href="#"
-                    style="text-decoration:underline;">Forgot?</a></div>
+        <form action="login.php" method="post" data-csrf>
+            <div class="form-group"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="your@email.com" autocomplete="email" maxlength="254" required /></div>
+            <div class="form-group"><label for="password">Password</label><input id="password" name="password" type="password" placeholder="Enter your password" autocomplete="current-password" maxlength="72" required /></div>
+            <div class="flex-row"><span>Need help accessing your account?</span><a href="contact.html" style="text-decoration:underline;">Contact us</a></div>
             <button type="submit" class="btn">Login</button>
         </form>
 
@@ -32,6 +33,24 @@
         </footer>
     </div>
 
+    <script src="../js/form-security.js"></script>
+    <script>
+        const messages = {
+            invalid: 'The email or password is incorrect.',
+            required: 'Enter a valid email address and password.',
+            database: 'Login is temporarily unavailable. Please try again later.',
+            registered: 'Your account was created. You can now log in.',
+            timeout: 'Your session has expired. Please log in again.',
+            logout: 'You have been logged out successfully.'
+        };
+        const status = new URLSearchParams(window.location.search);
+        const message = messages[status.get('error')] || messages[status.get('logout')] || (status.has('registered') ? messages.registered : '');
+        const messageBox = document.getElementById('authMessage');
+        if (message) {
+            messageBox.textContent = message;
+            messageBox.hidden = false;
+        }
+    </script>
 </body>
 
 </html>

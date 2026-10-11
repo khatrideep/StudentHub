@@ -6,20 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Hub - Contact</title>
     <link rel="stylesheet" href="../styles/contact.css">
+    <link rel="stylesheet" href="../styles/site.css">
 </head>
 
-<body>
+<body class="site-page">
     <div class="container">
         <header class="navbar">
             <a href="../index.html" class="brand"><div class="logo"><img src="../logo.jpeg" alt="Student Hub Logo" /></div>Student Hub</a>
             <ul class="nav-links">
                 <li><a href="home.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
-                <li><a href="events.html">Events</a></li>
-                <li><a href="dashboard.html">Dashboard</a></li>
-                <li><a href="admin.html">Admin</a></li>
+                <li><a href="events.php">Events</a></li>
+                <li><a href="dashboard.php">Dashboard</a></li>
+                <li><a href="admin.php">Admin</a></li>
                 <li><a href="feedback.html">Feedback</a></li>
-                <li><a href="faqs.html">FAQs</a></li>
+                <li><a href="faqs.php">FAQs</a></li>
                 <li><a href="login.html">Login</a></li>
                 <li><a href="register.html">Register</a></li>
             </ul>
@@ -33,15 +34,16 @@
                     <li><strong>Address:</strong> 123 Main Street, Changa, Gujarat</li>
                     <li><strong>Phone:</strong> +91 12345 67890</li>
                     <li><strong>Email:</strong> info@studenthub.com</li>
-                    <li><strong>Office hours:</strong> Monâ€“Sat, 9:00 AM â€“ 5:00 PM</li>
+                    <li><strong>Office hours:</strong> Mon-Sat, 9:00 AM - 5:00 PM</li>
                 </ul>
             </div>
             <div class="panel">
                 <h2>Send a message</h2>
-                <form>
-                    <div class="form-group"><label>Name</label><input type="text" placeholder="Your name"></div>
-                    <div class="form-group"><label>Email</label><input type="email" placeholder="Email"></div>
-                    <div class="form-group"><label>Message</label><textarea placeholder="Write your message"></textarea>
+                <p id="formMessage" class="auth-message" role="status" hidden></p>
+                <form action="actions.php?action=contact" method="post" data-csrf>
+                    <div class="form-group"><label for="contactName">Name</label><input id="contactName" name="name" type="text" maxlength="100" autocomplete="name" required></div>
+                    <div class="form-group"><label for="contactEmail">Email</label><input id="contactEmail" name="email" type="email" maxlength="254" autocomplete="email" required></div>
+                    <div class="form-group"><label for="contactMessageInput">Message</label><textarea id="contactMessageInput" name="message" maxlength="10000" required placeholder="Write your message"></textarea>
                     </div>
                     <button type="submit" class="btn">Send Message</button>
                 </form>
@@ -52,6 +54,19 @@
             <p>&copy; 2026 Student Hub</p>
         </div>
     </div>
+    <script src="../js/form-security.js"></script>
+    <script>
+        const formMessage = document.getElementById('formMessage');
+        const formStatus = new URLSearchParams(window.location.search);
+        if (formStatus.has('sent')) {
+            formMessage.textContent = 'Your message has been sent.';
+        } else if (formStatus.has('error')) {
+            formMessage.textContent = formStatus.get('error') === 'database'
+                ? 'Your message could not be saved. Please try again later.'
+                : 'Please check your details and try again.';
+        }
+        formMessage.hidden = !formMessage.textContent;
+    </script>
 </body>
 
 </html>

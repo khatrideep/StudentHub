@@ -1,4 +1,29 @@
-document.addEventListener('DOMContentLoaded', () => {
+const setupNotification = () => {
+    const banner = document.querySelector('.notification-banner');
+    const closeBanner = document.querySelector('.close-banner');
+
+    if (!banner || !closeBanner) {
+        return;
+    }
+
+    const dismissBanner = () => {
+        if (banner.classList.contains('is-hidden')) {
+            return;
+        }
+
+        banner.classList.add('is-hidden');
+        window.setTimeout(() => {
+            banner.hidden = true;
+        }, 240);
+    };
+
+    closeBanner.addEventListener('click', dismissBanner);
+    window.setTimeout(dismissBanner, 9000);
+};
+
+setupNotification();
+
+const initializePage = () => {
     const themeToggle = document.querySelector('.theme-toggle');
     const savedTheme = localStorage.getItem('student-hub-theme');
 
@@ -19,15 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const isDark = !document.body.classList.contains('dark-theme');
             localStorage.setItem('student-hub-theme', isDark ? 'dark' : 'light');
             setTheme(isDark);
-        });
-    }
-
-    const banner = document.querySelector('.notification-banner');
-    const closeBanner = document.querySelector('.close-banner');
-
-    if (banner && closeBanner) {
-        closeBanner.addEventListener('click', () => {
-            banner.classList.add('is-hidden');
         });
     }
 
@@ -148,4 +164,10 @@ document.addEventListener('DOMContentLoaded', () => {
             item.classList.toggle('is-open', !isExpanded);
         });
     });
-});
+};
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializePage, { once: true });
+} else {
+    initializePage();
+}

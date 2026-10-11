@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Student Hub</title>
     <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/site.css">
 </head>
 
-<body>
+<body class="site-page">
 
     <div class="notification-banner" role="status" aria-live="polite">
         <span>New student orientation registration is now open for this semester.</span>
@@ -28,11 +29,11 @@
                 <ul class="nav-links" id="main-nav">
                     <li><a href="pages/home.html">Home</a></li>
                     <li><a href="pages/about.html">About</a></li>
-                    <li><a href="pages/events.html">Events</a></li>
-                    <li><a href="pages/dashboard.html">Dashboard</a></li>
-                    <li><a href="pages/admin.html">Admin</a></li>
+                    <li><a href="pages/events.php">Events</a></li>
+                    <li><a href="pages/dashboard.php">Dashboard</a></li>
+                    <li><a href="pages/admin.php">Admin</a></li>
                     <li><a href="pages/feedback.html">Feedback</a></li>
-                    <li><a href="pages/faqs.html">FAQs</a></li>
+                    <li><a href="pages/faqs.php">FAQs</a></li>
                     <li><a href="pages/login.html">Login</a></li>
                     <li><a href="pages/register.html">Register</a></li>
                 </ul>
@@ -52,9 +53,9 @@
                 <div class="hero-panel">
                     <h3 style="margin-bottom: 8px;">Quick overview</h3>
                     <div class="stat-grid">
-                        <div class="stat-item"><small>Active events</small><strong>12</strong></div>
-                        <div class="stat-item"><small>Notices</small><strong>08</strong></div>
-                        <div class="stat-item"><small>Support</small><strong>24</strong></div>
+                        <div class="stat-item"><small>Upcoming events</small><strong data-home-stat="events">—</strong></div>
+                        <div class="stat-item"><small>Current notices</small><strong data-home-stat="notices">—</strong></div>
+                        <div class="stat-item"><small>Next event</small><strong data-home-stat="nextEvent">—</strong></div>
                     </div>
                 </div>
             </section>
@@ -160,7 +161,8 @@
         </div>
     </div>
 
-    <script src="js/theme.js"></script>
+    <script src="js/theme.js?v=2"></script>
+    <script src="js/home-stats.js"></script>
 
 </body>
 
