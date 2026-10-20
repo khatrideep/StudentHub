@@ -1,489 +1,191 @@
 # StudentHub Portal
 
-A responsive student portal developed using **HTML5, CSS3, JavaScript, Bootstrap 5, JSON, and Git/GitHub**.
+StudentHub is a PHP and MySQL student portal with a responsive, grayscale interface. It includes public campus pages, student registration and login, a role-protected student dashboard, and an AdminLTE-based administration area.
 
-StudentHub provides a centralized interface for students to access campus information and services such as events, notices, FAQs, student profiles, feedback, and contact services.
+## Features
 
----
+- Public Home, About, Events, Notices, Student Directory, FAQs, Feedback, and Contact pages.
+- Student registration, password-hashed login, session management, logout, and profile editing.
+- Student dashboard with profile, notices, attendance, assignments, and event-registration information.
+- Directory and FAQ content loaded from JSON, with search and other client-side interactions.
+- MySQL-backed events, student event RSVPs, notices, feedback, and contact messages.
+- AdminLTE 4 / Bootstrap 5 admin dashboard for student and event management, notice publishing, message moderation, statistics, and audit history.
+- Server-side role checks: student accounts cannot access admin pages, actions, or the event API.
+- CSRF protection for state-changing forms and API requests.
+- Event poster upload validation and executable-upload protection.
+- Responsive black, white, and gray styling, with a light/dark theme preference.
 
-## 📌 Project Overview
+## Technology
 
-**StudentHub** is a modern academic portal designed to bring commonly used student services into one place.
+| Technology | Use |
+| --- | --- |
+| HTML5 and CSS3 | Public pages, layouts, responsive and grayscale styling |
+| JavaScript | Client-side interactions, form security, JSON rendering, and admin event management |
+| PHP 8.1+ | Authentication, sessions, server-side forms, authorization, and page rendering |
+| MySQL / MariaDB | Accounts, events, notices, registrations, messages, and audit history |
+| Bootstrap 5, Bootstrap Icons, AdminLTE 4 | Responsive administrator interface |
+| JSON and Fetch API | Public directory, FAQ content, and sample event data |
 
-The current version is primarily a **client-side web application**. It uses JavaScript for UI interactions, form validation, theme switching, local storage, and dynamic rendering of JSON-based data.
+Bootstrap and AdminLTE are referenced from public CDNs for the admin interface, so an internet connection is needed for those assets unless they are hosted locally.
 
-### Main Objectives
-
-* Provide a centralized student portal.
-* Create a clean, modern, and responsive user interface.
-* Provide easy navigation between different student services.
-* Display dynamic student, event, notice, and FAQ information.
-* Implement client-side form validation.
-* Demonstrate practical use of HTML, CSS, JavaScript, Bootstrap, JSON, and Git.
-* Build a project structure that can be extended into a full-stack application.
-
----
-
-## ✨ Features
-
-### 🏠 Home Page
-
-* StudentHub branding and navigation.
-* Hero section with portal introduction.
-* Quick access to major student services.
-* Notification/announcement section.
-* Responsive navigation.
-* Light/Dark theme switcher.
-
-### 🔐 Login
-
-* Student login interface.
-* Form handling and validation.
-* Client-side demo authentication behaviour.
-
-### 📝 Registration
-
-* Student registration form.
-* Full name validation.
-* Email validation.
-* Mobile number validation.
-* Course and academic year selection.
-* Gender selection.
-* Terms & Conditions validation.
-* Password confirmation.
-* Password strength indicator.
-* Real-time validation feedback.
-
-### 📊 Dashboard
-
-* Student dashboard interface.
-* Student-related information.
-* Quick access to important portal sections.
-* Interactive UI components.
-
-### 👨‍🎓 Student Directory
-
-* Student information loaded dynamically from `students.json`.
-* Dynamic rendering using JavaScript.
-* Search/filter functionality.
-* Responsive student cards/layout.
-
-### 📅 Events
-
-* Upcoming events read from MySQL and displayed in responsive event cards.
-* Student event RSVP with registration-capacity checks.
-* Admin-only asynchronous event create, edit, delete, category/status management, and poster uploads.
-* `data/events.json` is a sample dataset for the JSON practical.
-
-### 📢 Notices
-
-* Current notices are read from MySQL.
-* Administrators can publish notices from the dashboard.
-
-### ❓ FAQ
-
-* Frequently Asked Questions section.
-* Interactive FAQ components.
-* FAQ data loaded dynamically from `data/faqs.json` using Fetch.
-
-### 👤 Profile
-
-* Authenticated profile data read from and saved to MySQL.
-
-### 💬 Feedback
-
-* Feedback form.
-* Client-side validation.
-* Success/error feedback messages.
-
-### 📧 Contact
-
-* Contact form.
-* User input validation.
-* Interactive form handling.
-
-### 🛠️ Admin Panel
-
-* AdminLTE 4 and Bootstrap 5 dashboard in a grayscale theme.
-* Student and event management, notice publishing, message moderation, statistics, and audit history.
-
-### 🎨 Theme Switcher
-
-* Light and dark theme support.
-* Theme preference stored using `localStorage`.
-* Theme remains available after page reload.
-
-### 📱 Responsive Design
-
-* Desktop responsive layout.
-* Tablet responsive layout.
-* Mobile responsive layout.
-* Bootstrap grid system.
-* Custom CSS media queries.
-
----
-
-## 🧰 Technologies Used
-
-| Technology            | Purpose                                                            |
-| --------------------- | ------------------------------------------------------------------ |
-| **HTML5**             | Page structure and semantic markup                                 |
-| **CSS3**              | Styling, layouts, animations, and responsiveness                   |
-| **JavaScript (ES6+)** | Interactivity, validation, DOM manipulation, and dynamic rendering |
-| **Bootstrap 5.3**     | Responsive layouts and UI components                               |
-| **Bootstrap Icons**   | Interface icons                                                    |
-| **JSON**              | Static data storage                                                |
-| **Fetch API**         | Loading JSON data dynamically                                      |
-| **LocalStorage**      | Client-side data and theme persistence                             |
-| **Git**               | Version control                                                    |
-| **GitHub**            | Source code hosting                                                |
-
----
-
-## 📂 Project Structure
+## Project structure
 
 ```text
 Student Hub/
-│
-├── index.html
+├── index.html                 # Public landing page
+├── calculator.html            # Standalone project/practice page
+├── js.html                    # Standalone project/practice page
+├── logo.jpeg
+├── student_hub.sql            # Database schema and seed data
 ├── README.md
-│
-├── assets/
-│   ├── icons/
-│   └── images/
-│
-├── css/
+├── data/
+│   ├── events.json            # Sample JSON events
+│   ├── faqs.json              # FAQ data
+│   └── students.json          # Public student directory data
+├── docs/
+│   └── project-guide.md       # Setup guide, sitemap, data model, feature map
+├── js/
+│   ├── admin-events.js        # Admin event CRUD and API requests
+│   ├── faqs.js                # FAQ loading, search, and interaction
+│   ├── form-security.js       # CSRF token setup for forms
+│   ├── home-stats.js          # Home-page summary data
+│   ├── script.js              # Shared page interactions
+│   ├── student-profile.js     # Student profile interactions
+│   ├── students.js            # Directory loading, filtering, sorting, and pagination
+│   └── theme.js               # Theme preference
+├── pages/
+│   ├── about.html
+│   ├── actions.php            # Form action handler
+│   ├── admin.html             # Legacy redirect to admin.php
+│   ├── admin.php              # Admin overview (admin role required)
+│   ├── admin-events.php       # Event management (admin role required)
+│   ├── admin-students.php     # Student management (admin role required)
+│   ├── api.php                # Admin-only event API
+│   ├── auth-db.php            # Shared database, session, CSRF, and role helpers
+│   ├── contact.html
+│   ├── csrf.php               # CSRF-token endpoint
+│   ├── dashboard.html         # Legacy redirect to dashboard.php
+│   ├── dashboard.php          # Student dashboard (login required)
+│   ├── events.html            # Legacy redirect to events.php
+│   ├── events.php
+│   ├── faqs.html              # Legacy redirect to faqs.php
+│   ├── faqs.php
+│   ├── feedback.html
+│   ├── home.html
+│   ├── login.html
+│   ├── login.php
+│   ├── logout.php
+│   ├── notices.php
+│   ├── register.html
+│   ├── register.php
+│   ├── stats.php              # Home-page summary API
+│   └── students.html
+├── styles/
 │   ├── about.css
 │   ├── admin.css
+│   ├── adminlte-overrides.css
 │   ├── contact.css
 │   ├── dashboard.css
 │   ├── events.css
-│   ├── faq.css
+│   ├── faqs.css
 │   ├── feedback.css
+│   ├── home.css
 │   ├── index.css
 │   ├── login.css
-│   ├── profile.css
-│   └── register.css
-│
-├── data/
-│   ├── events.json
-│   ├── faqs.json
-│   ├── notices.json
-│   └── students.json
-│
-├── js/
-│   ├── about.js
-│   ├── admin.js
-│   ├── contact.js
-│   ├── dashboard.js
-│   ├── events.js
-│   ├── faq.js
-│   ├── feedback.js
-│   ├── index.js
-│   ├── login.js
-│   ├── notices.js
-│   ├── profile.js
-│   ├── register.js
-│   └── students.js
-│
-└── pages/
-    ├── about.html
-    ├── admin.html
-    ├── contact.html
-    ├── dashboard.html
-    ├── events.html
-    ├── faq.html
-    ├── feedback.html
-    ├── login.html
-    ├── profile.html
-    └── register.html
+│   ├── notices.css
+│   ├── register.css
+│   ├── site.css
+│   └── students.css
+└── uploads/
+    └── events/
+        └── .htaccess         # Prevents execution of uploaded files
 ```
 
----
+## Run locally with XAMPP
 
-## 📄 JSON Data Files
+1. Put the project folder inside XAMPP's `htdocs` directory. For this project, the folder is `C:\xampp\htdocs\student Hub`.
+2. In the XAMPP Control Panel, start **Apache** and **MySQL**.
+3. Open phpMyAdmin and import `student_hub.sql`. The script creates the `student hub` database, tables, sample events/notices, and student records.
+4. Open the project at [http://localhost/student%20Hub/](http://localhost/student%20Hub/).
 
-JSON is used for public directory/FAQ data and as a sample event dataset. Server-managed events and notices use MySQL.
+Use Apache to run the project. VS Code Live Server or a static file server will not execute PHP or provide MySQL sessions.
 
-### `students.json`
+### Database connection
 
-Stores student directory information that is dynamically loaded and displayed on the Student Directory page.
+By default, the app uses:
 
-### `events.json`
+| Setting | Default |
+| --- | --- |
+| Host | `localhost` |
+| Port | `3306` |
+| Database | `student hub` |
+| User | `root` |
+| Password | Empty |
 
-Contains sample event records for the JSON practical. The live Events page reads MySQL so registrations, availability, and administrator changes stay consistent.
+To use different credentials, set the `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, and `DB_PASSWORD` environment variables for the PHP/Apache process.
 
-### `faqs.json`
+### Set up the seeded administrator
 
-Stores frequently asked questions and their answers.
+The SQL seed assigns the `admin` role to `admin@studenthub.edu`, but deliberately does not provide a shared plaintext password. Set a private local password before signing in:
 
-Using JSON keeps the data separate from the HTML and makes the project easier to maintain and update.
+1. Generate a password hash from a terminal with PHP:
 
----
+   ```powershell
+   C:\xampp\php\php.exe -r "echo password_hash('YOUR-PRIVATE-PASSWORD', PASSWORD_DEFAULT), PHP_EOL;"
+   ```
 
-## 🔄 Fetch API & Dynamic Rendering
+2. In phpMyAdmin, select the `student hub` database and run the following query, replacing the placeholder with the generated hash:
 
-The project uses the **JavaScript Fetch API** to retrieve JSON data.
+   ```sql
+   UPDATE students
+   SET password_hash = 'PASTE_GENERATED_HASH_HERE'
+   WHERE email = 'admin@studenthub.edu' AND role = 'admin';
+   ```
 
-The general flow is:
+3. Sign in at `pages/login.html` using `admin@studenthub.edu` and the private password you chose. Admin users are redirected to `pages/admin.php`; student users are redirected to `pages/dashboard.php`.
 
-```text
-JSON File
-    ↓
-Fetch API
-    ↓
-JavaScript
-    ↓
-DOM Manipulation
-    ↓
-Dynamic HTML Rendering
-    ↓
-User Interface
-```
+Do not use local XAMPP default database credentials or a shared demo password in a deployment. Seeded inactive sample student accounts cannot log in until an administrator sets their password and activates them.
 
-This approach loads student-directory and FAQ content without manually modifying the HTML. MySQL is the live source of truth for events and notices.
+## Page and access map
 
----
+| Page / endpoint | Purpose | Access |
+| --- | --- | --- |
+| `index.html` | Home and public navigation | Public |
+| `pages/about.html`, `contact.html`, `feedback.html` | About, contact, and feedback | Public |
+| `pages/events.php`, `notices.php`, `faqs.php`, `students.html` | Events, notices, FAQs, student directory | Public |
+| `pages/register.html` | Create a student account | Public |
+| `pages/login.html` | Sign in | Public |
+| `pages/dashboard.php` | Student dashboard and profile | Active account required |
+| `pages/admin.php` | Admin overview and message/notice tools | Active admin account required |
+| `pages/admin-students.php` | Student account management | Active admin account required |
+| `pages/admin-events.php`, `pages/api.php` | Event management and event API | Active admin account required |
+| `pages/logout.php` | End the current session | Signed-in account |
 
-## 📝 Form Validation
+The Admin link is only displayed for an admin session on pages that show it, but hiding the link is not the security boundary: PHP checks the account role before serving admin pages, actions, or API data.
 
-The registration and other forms include client-side validation.
+## Data sources
 
-### Registration Validation
+- MySQL is the source of truth for accounts, event RSVPs, notices, contact messages, feedback, and administrator activity.
+- `data/students.json` supplies the public student directory.
+- `data/faqs.json` supplies the public FAQ list.
+- `data/events.json` is retained as sample JSON data; the live event page and admin event manager use MySQL.
 
-* Required field validation.
-* Name validation.
-* Email validation.
-* Mobile number validation.
-* Password validation.
-* Confirm password matching.
-* Course selection validation.
-* Academic year validation.
-* Gender selection validation.
-* Terms & Conditions validation.
-* Real-time validation feedback.
+## Verification
 
-### Password Requirements
+After setting up XAMPP, verify:
 
-The password validation can require:
+1. Public pages open from the home page and their navigation links.
+2. A student can register, sign in, reach the dashboard, and sign out.
+3. An admin can sign in and open the admin overview, student manager, and event manager.
+4. A student or logged-out visitor is redirected or denied when trying to open admin pages directly.
+5. Event RSVP, admin event create/edit/delete, notice publishing, and message status changes persist in MySQL.
 
-* Minimum 8 characters.
-* At least one uppercase letter.
-* At least one lowercase letter.
-* At least one number.
-* At least one special character.
+The browser checks above are manual smoke-test steps; this repository does not currently include an automated test runner.
 
----
+## Project guide
 
-## 🎨 Theme Switcher
+See [docs/project-guide.md](docs/project-guide.md) for the sitemap, database relationship model, detailed feature map, and additional XAMPP notes.
 
-StudentHub includes a Light/Dark theme switcher.
+## Academic use
 
-The selected theme is stored using:
-
-```javascript
-localStorage
-```
-
-This allows the user's selected theme to remain available after refreshing or reopening the page.
-
----
-
-## 📱 Responsive Design
-
-The website is designed to work across different screen sizes:
-
-* 💻 Desktop
-* 💻 Laptop
-* 📱 Tablet
-* 📱 Mobile
-
-Responsive design is implemented using:
-
-* Bootstrap grid system.
-* Bootstrap responsive utilities.
-* CSS media queries.
-* Flexible layouts.
-* Responsive cards and navigation.
-
----
-
-## 🎯 UI/UX Design
-
-The project focuses on:
-
-* Clean and modern academic portal design.
-* Consistent navigation.
-* Responsive layouts.
-* Clear form validation messages.
-* Consistent typography and spacing.
-* Interactive components.
-* Light/Dark mode.
-* User-friendly navigation.
-* Mobile-friendly interface.
-
----
-
-## ⚙️ How to Run the Project
-
-### XAMPP (PHP and MySQL)
-
-1. Install XAMPP and start **Apache** and **MySQL**.
-2. Import `student_hub.sql` in phpMyAdmin.
-3. Place the repository folder under XAMPP's `htdocs` directory.
-4. Open `http://localhost/student%20Hub/`.
-5. Configure `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, and `DB_PASSWORD` for non-default database credentials.
-
-The PHP authentication, event RSVP, notices, student administration, event management, and API features need Apache and MySQL. JSON-only pages can be viewed through any local HTTP server.
-
----
-
-## 🧪 Testing
-
-The project can be tested for:
-
-### Functional Testing
-
-* Navigation links.
-* Registration form.
-* Login form.
-* Form validation.
-* Theme switching.
-* JSON data loading.
-* Dynamic rendering.
-* FAQ interaction.
-* Event display.
-* Notice display.
-* Student directory display.
-
-### Responsive Testing
-
-The interface should be checked on:
-
-* Desktop.
-* Tablet.
-* Mobile.
-
-### Browser Testing
-
-The project can be tested using modern browsers such as:
-
-* Google Chrome
-* Microsoft Edge
-* Mozilla Firefox
-
----
-
-## 🔒 Current Limitations
-
-The current version is an academic project, not a production deployment. It uses server-side MySQL for authentication and account operations, plus JSON for selected public directory/FAQ content. It does not currently include email verification, self-service password recovery, a production mail service, or deployment hardening and monitoring.
-
----
-
-## 🚀 Future Scope
-
-Possible next steps include expanding the existing portal into a production-ready student management platform.
-
-### Backend
-
-* Python Flask / Node.js backend.
-* REST API integration.
-* SQL Server / MySQL / PostgreSQL database.
-* Server-side validation.
-* Secure authentication.
-* Password hashing.
-
-### Student Features
-
-* Attendance management.
-* Academic performance tracking.
-* Assignment submission.
-* Course management.
-* Timetable management.
-* Exam schedule.
-* Digital notices.
-* Student notifications.
-
-### Admin Features
-
-* Student CRUD operations.
-* Event management.
-* Notice management.
-* FAQ management.
-* User management.
-* Dashboard analytics.
-
-### Advanced Features
-
-* Role-based access control.
-* Real-time notifications.
-* Student communication.
-* File/document uploads.
-* Email notifications.
-* Cloud deployment.
-* AI-powered student assistance.
-
----
-
-## 🔧 Development Practices
-
-The project follows a modular front-end structure:
-
-* HTML files are organized inside `pages/`.
-* CSS files are separated according to pages/modules.
-* JavaScript files are separated according to functionality.
-* JSON data is stored inside `data/`.
-* Images and icons are organized inside `assets/`.
-* Git is used for version control.
-* GitHub is used for remote source-code hosting.
-
----
-
-## 📚 Academic Concepts Demonstrated
-
-This project demonstrates practical knowledge of:
-
-* HTML5
-* CSS3
-* Responsive Web Design
-* JavaScript
-* DOM Manipulation
-* Event Handling
-* Form Validation
-* Fetch API
-* JSON
-* LocalStorage
-* Bootstrap
-* CSS Media Queries
-* Git
-* GitHub
-
----
-
-## 📌 Academic Project
-
-StudentHub is developed as part of a **Web Designing Frameworks / Web Development practical project**.
-
-The project demonstrates how modern front-end technologies can be combined to create a responsive and interactive student portal.
-
----
-
-## 👨‍💻 Author
-
-**StudentHub Semester Project**
-
-Developed for academic and educational purposes.
-
----
-
-## 📜 License
-
-This project is intended for **educational and academic use**.
-
-You may modify and extend the project for learning and demonstration purposes.
-
-## Current full-stack implementation
-
-The current XAMPP version includes PHP/MySQL authentication, role-protected Student Hub administration, student and event management, event RSVP, notices, audit logging, and protected event-poster uploads. Public student and FAQ content is loaded from JSON. The MySQL setup and project sitemap/database model are documented in [docs/project-guide.md](docs/project-guide.md).
-
-Run the application through Apache and MySQL, then import `student_hub.sql`. The older Live Server and Python HTTP server instructions above apply only to the static pages; PHP-backed features require a PHP server and MySQL. Reset the seeded administrator password before use, and do not deploy with XAMPP's default database credentials.
+StudentHub is an educational semester project. It is a starting point for coursework and local demonstrations, not a hardened production deployment. Production use requires environment-specific database credentials, deployment security review, reliable backups, and operational monitoring.
