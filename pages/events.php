@@ -6,7 +6,7 @@ require_once __DIR__ . '/auth-db.php';
 auth_start_session();
 $database = auth_database();
 $events = $database->query(
-    "SELECT e.event_id, e.title, e.description, e.starts_at, e.location, e.capacity,
+    "SELECT e.event_id, e.title, e.description, e.category, e.status, e.poster_path, e.starts_at, e.location, e.capacity,
             COUNT(CASE WHEN r.registration_status = 'registered' THEN 1 END) AS registration_count,
             MAX(CASE WHEN r.student_id = " . (int) ($_SESSION['student_id'] ?? 0) . " AND r.registration_status = 'registered' THEN 1 ELSE 0 END) AS is_registered
      FROM events e
@@ -32,9 +32,12 @@ $escape = static fn (string $value): string => htmlspecialchars($value, ENT_QUOT
         <main class="main-content">
             <header class="navbar">
                 <a href="../index.html" class="brand"><div class="logo"><img src="../logo.jpeg" alt="Student Hub Logo"></div>Student Hub</a>
+                <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">Dark mode</button>
                 <ul class="nav-links">
-                    <li><a href="home.html">Home</a></li><li><a href="about.html">About</a></li>
-                    <li><a href="events.php">Events</a></li><li><a href="dashboard.php">Dashboard</a></li>
+                    <li><a href="../index.html">Home</a></li><li><a href="about.html">About</a></li>
+                    <li><a href="events.php">Events</a></li><li><a href="notices.php">Notices</a></li>
+                    <li><a href="students.html">Students</a></li><li><a href="dashboard.php#profile">Profile</a></li>
+                    <li><a href="dashboard.php">Dashboard</a></li>
                     <?php if (($_SESSION['student_role'] ?? '') === 'admin'): ?><li><a href="admin.php">Admin</a></li><?php endif; ?>
                     <li><a href="feedback.html">Feedback</a></li><li><a href="faqs.php">FAQs</a></li>
                     <?php if (empty($_SESSION['student_id'])): ?><li><a href="login.html">Login</a></li><li><a href="register.html">Register</a></li><?php else: ?><li><a href="logout.php">Logout</a></li><?php endif; ?>
@@ -50,14 +53,18 @@ $escape = static fn (string $value): string => htmlspecialchars($value, ENT_QUOT
             <div class="grid-3">
                 <?php foreach ($events as $event): ?>
                     <article class="card">
+                        <?php if (!empty($event['poster_path'])): ?><img class="event-poster" src="../<?php echo $escape($event['poster_path']); ?>" alt="<?php echo $escape($event['title']); ?> event poster" loading="lazy"><?php endif; ?>
                         <span class="tag"><?php echo $escape(date('M j, Y', strtotime($event['starts_at']))); ?></span>
+                        <span class="tag"><?php echo $escape($event['category']); ?></span>
                         <h2><?php echo $escape($event['title']); ?></h2>
                         <p><?php echo nl2br($escape($event['description'] ?? '')); ?></p>
                         <p class="text-muted"><?php echo $escape($event['location'] ?? 'Location to be announced'); ?></p>
                         <?php if ($event['capacity'] !== null): ?>
                             <p class="text-muted"><?php echo max(0, (int) $event['capacity'] - (int) $event['registration_count']); ?> places remaining</p>
                         <?php endif; ?>
-                        <?php if ((int) $event['is_registered'] === 1): ?>
+                        <?php if ($event['status'] !== 'open'): ?>
+                            <span class="btn" aria-label="Registration is closed">Registration closed</span>
+                        <?php elseif ((int) $event['is_registered'] === 1): ?>
                             <span class="btn" aria-label="Registration confirmed">Registered</span>
                         <?php elseif (empty($_SESSION['student_id'])): ?>
                             <a class="btn" href="login.html">Log in to RSVP</a>
@@ -74,5 +81,6 @@ $escape = static fn (string $value): string => htmlspecialchars($value, ENT_QUOT
         </main>
     </div>
     <script src="../js/form-security.js"></script>
+    <script src="../js/theme.js"></script>
 </body>
 </html>

@@ -148,16 +148,112 @@ try {
         $register->bind_param('ii', $eventId, $studentId);
         $register->execute();
         $register->close();
+        auth_audit_log($database, 'event.registered', 'event', $eventId, ['student_id' => $studentId]);
         $database->commit();
         auth_redirect('../pages/events.php?registered=1');
     }
 
-    if ($action === 'notice') {
-        auth_require_login();
-        if (($_SESSION['student_role'] ?? '') !== 'admin') {
-            http_response_code(403);
-            exit('Administrator access is required.');
+    if ($action === 'student-save') {
+        auth_require_admin();
+        $studentId = filter_input(INPUT_POST, 'student_id', FILTER_VALIDATE_INT) ?: 0;
+        $name = trim((string) ($_POST['full_name'] ?? ''));
+        $email = strtolower(trim((string) ($_POST['email'] ?? '')));
+        $phone = trim((string) ($_POST['phone'] ?? ''));
+        $program = trim((string) ($_POST['program'] ?? ''));
+        $year = trim((string) ($_POST['academic_year'] ?? ''));
+        $password = (string) ($_POST['password'] ?? '');
+        $validYears = ['1st Year', '2nd Year', '3rd Year', '4th Year'];
+
+        if (
+            !preg_match("/^[\\p{L}][\\p{L}\\s'-]{1,99}$/u", $name)
+            || !filter_var($email, FILTER_VALIDATE_EMAIL)
+            || strlen($email) > 254
+            || ($phone !== '' && !preg_match('/^\\+?[0-9]{10,30}$/', $phone))
+            || $program === ''
+            || strlen($program) > 120
+            || !in_array($year, $validYears, true)
+            || ($studentId === 0 && (strlen($password) < 8 || strlen($password) > 72))
+            || ($password !== '' && (strlen($password) < 8 || strlen($password) > 72))
+        ) {
+            auth_redirect('admin-students.php?error=invalid');
         }
+
+        $database->begin_transaction();
+        if ($studentId > 0) {
+            $exists = $database->prepare("SELECT student_id FROM students WHERE student_id = ? AND role = 'student' FOR UPDATE");
+            $exists->bind_param('i', $studentId);
+            $exists->execute();
+            $found = $exists->get_result()->fetch_assoc();
+            $exists->close();
+            if (!$found) {
+                $database->rollback();
+                auth_redirect('admin-students.php?error=not-found');
+            }
+
+            if ($password !== '') {
+                $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+                $update = $database->prepare(
+                    'UPDATE students SET full_name = ?, email = ?, phone = ?, program = ?, academic_year = ?, password_hash = ?
+                     WHERE student_id = ? AND role = "student"'
+                );
+                $update->bind_param('ssssssi', $name, $email, $phone, $program, $year, $passwordHash, $studentId);
+            } else {
+                $update = $database->prepare(
+                    'UPDATE students SET full_name = ?, email = ?, phone = ?, program = ?, academic_year = ?
+                     WHERE student_id = ? AND role = "student"'
+                );
+                $update->bind_param('sssssi', $name, $email, $phone, $program, $year, $studentId);
+            }
+            $update->execute();
+            $update->close();
+            auth_audit_log($database, 'student.updated', 'student', $studentId, ['email' => $email]);
+        } else {
+            $studentCode = 'SH' . strtoupper(bin2hex(random_bytes(5)));
+            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+            $insert = $database->prepare(
+                'INSERT INTO students (student_code, full_name, email, password_hash, phone, program, academic_year)
+                 VALUES (?, ?, ?, ?, ?, ?, ?)'
+            );
+            $insert->bind_param('sssssss', $studentCode, $name, $email, $passwordHash, $phone, $program, $year);
+            $insert->execute();
+            $studentId = (int) $database->insert_id;
+            $insert->close();
+            auth_audit_log($database, 'student.created', 'student', $studentId, ['email' => $email]);
+        }
+        $database->commit();
+        auth_redirect('admin-students.php?saved=1');
+    }
+
+    if ($action === 'student-status') {
+        auth_require_admin();
+        $studentId = filter_input(INPUT_POST, 'student_id', FILTER_VALIDATE_INT);
+        $status = (string) ($_POST['status'] ?? '');
+        if (!$studentId || $studentId < 1 || $studentId === (int) ($_SESSION['student_id'] ?? 0) || !in_array($status, ['active', 'inactive'], true)) {
+            auth_redirect('admin-students.php?error=status');
+        }
+
+        $database->begin_transaction();
+        $exists = $database->prepare("SELECT student_id FROM students WHERE student_id = ? AND role = 'student' FOR UPDATE");
+        $exists->bind_param('i', $studentId);
+        $exists->execute();
+        $found = $exists->get_result()->fetch_assoc();
+        $exists->close();
+        if (!$found) {
+            $database->rollback();
+            auth_redirect('admin-students.php?error=not-found');
+        }
+
+        $update = $database->prepare('UPDATE students SET account_status = ? WHERE student_id = ?');
+        $update->bind_param('si', $status, $studentId);
+        $update->execute();
+        $update->close();
+        auth_audit_log($database, 'student.status_changed', 'student', $studentId, ['status' => $status]);
+        $database->commit();
+        auth_redirect('admin-students.php?status_updated=1');
+    }
+
+    if ($action === 'notice') {
+        auth_require_admin();
 
         $title = trim((string) ($_POST['title'] ?? ''));
         $message = trim((string) ($_POST['message'] ?? ''));
@@ -165,19 +261,19 @@ try {
             auth_redirect('admin.php?error=notice');
         }
 
+        $database->begin_transaction();
         $statement = $database->prepare('INSERT INTO notices (title, body) VALUES (?, ?)');
         $statement->bind_param('ss', $title, $message);
         $statement->execute();
+        $noticeId = (int) $database->insert_id;
         $statement->close();
+        auth_audit_log($database, 'notice.created', 'notice', $noticeId, ['title' => $title]);
+        $database->commit();
         auth_redirect('admin.php?notice=published');
     }
 
     if ($action === 'message-status') {
-        auth_require_login();
-        if (($_SESSION['student_role'] ?? '') !== 'admin') {
-            http_response_code(403);
-            exit('Administrator access is required.');
-        }
+        auth_require_admin();
 
         $recordType = (string) ($_POST['record_type'] ?? '');
         $recordId = filter_input(INPUT_POST, 'record_id', FILTER_VALIDATE_INT);
@@ -193,8 +289,11 @@ try {
         [$table, $idColumn] = $tables[$recordType];
         $statement = $database->prepare("UPDATE {$table} SET status = ? WHERE {$idColumn} = ?");
         $statement->bind_param('si', $status, $recordId);
+        $database->begin_transaction();
         $statement->execute();
         $statement->close();
+        auth_audit_log($database, 'message.status_changed', $recordType, $recordId, ['status' => $status]);
+        $database->commit();
         auth_redirect('admin.php?status=updated');
     }
 
@@ -210,6 +309,8 @@ try {
         'contact' => '../pages/contact.html?error=database',
         'profile' => 'dashboard.php?error=database',
         'event-register' => '../pages/events.php?error=database',
+        'student-save' => 'admin-students.php?error=database',
+        'student-status' => 'admin-students.php?error=database',
         'notice' => 'admin.php?error=database',
         'message-status' => 'admin.php?error=database',
         default => '../index.html',

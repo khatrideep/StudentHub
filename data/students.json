@@ -62,5 +62,101 @@
     "year": "3rd Year",
     "email": "vikram.joshi@studenthub.edu",
     "city": "Nagpur"
+  },
+  {
+    "id": 9,
+    "name": "Meera Iyer",
+    "program": "BA",
+    "year": "1st Year",
+    "email": "meera.iyer@studenthub.edu",
+    "city": "Chennai"
+  },
+  {
+    "id": 10,
+    "name": "Rahul Desai",
+    "program": "BCom",
+    "year": "3rd Year",
+    "email": "rahul.desai@studenthub.edu",
+    "city": "Vadodara"
+  },
+  {
+    "id": 11,
+    "name": "Fatima Khan",
+    "program": "BSc Computer Science",
+    "year": "2nd Year",
+    "email": "fatima.khan@studenthub.edu",
+    "city": "Hyderabad"
+  },
+  {
+    "id": 12,
+    "name": "Dev Patel",
+    "program": "BBA",
+    "year": "4th Year",
+    "email": "dev.patel@studenthub.edu",
+    "city": "Rajkot"
+  },
+  {
+    "id": 13,
+    "name": "Ananya Roy",
+    "program": "BCA",
+    "year": "1st Year",
+    "email": "ananya.roy@studenthub.edu",
+    "city": "Kolkata"
+  },
+  {
+    "id": 14,
+    "name": "Kabir Shah",
+    "program": "BA",
+    "year": "3rd Year",
+    "email": "kabir.shah@studenthub.edu",
+    "city": "Indore"
+  },
+  {
+    "id": 15,
+    "name": "Ishita Rao",
+    "program": "BCom",
+    "year": "2nd Year",
+    "email": "ishita.rao@studenthub.edu",
+    "city": "Bengaluru"
+  },
+  {
+    "id": 16,
+    "name": "Aarav Mehta",
+    "program": "BBA",
+    "year": "2nd Year",
+    "email": "aarav.mehta@studenthub.edu",
+    "city": "Ahmedabad"
+  },
+  {
+    "id": 17,
+    "name": "Zoya Ali",
+    "program": "BCA",
+    "year": "4th Year",
+    "email": "zoya.ali@studenthub.edu",
+    "city": "Lucknow"
+  },
+  {
+    "id": 18,
+    "name": "Rohan Das",
+    "program": "BA",
+    "year": "2nd Year",
+    "email": "rohan.das@studenthub.edu",
+    "city": "Guwahati"
+  },
+  {
+    "id": 19,
+    "name": "Nisha Patel",
+    "program": "BSc Computer Science",
+    "year": "3rd Year",
+    "email": "nisha.patel@studenthub.edu",
+    "city": "Surat"
+  },
+  {
+    "id": 20,
+    "name": "Aditya Menon",
+    "program": "BCom",
+    "year": "1st Year",
+    "email": "aditya.menon@studenthub.edu",
+    "city": "Kochi"
   }
 ]

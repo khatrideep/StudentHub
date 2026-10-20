@@ -168,6 +168,17 @@
             margin-bottom: 6px;
         }
 
+        .event-poster {
+            display: block;
+            width: 100%;
+            max-height: 220px;
+            margin-bottom: 14px;
+            border: 1px solid #d4d4d4;
+            border-radius: 10px;
+            object-fit: cover;
+            filter: grayscale(1);
+        }
+
         @media (min-width: 1100px) {
             .page-wrapper {
                 padding: 28px 52px 0;

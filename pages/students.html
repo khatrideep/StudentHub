@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Browse and search the Student Hub student directory.">
+    <title>Student Hub - Student Directory</title>
+    <link rel="stylesheet" href="../styles/students.css">
+    <link rel="stylesheet" href="../styles/site.css">
+</head>
+<body class="site-page">
+    <div class="page-wrapper">
+        <main class="main-content">
+            <header class="navbar">
+                <a href="../index.html" class="brand"><div class="logo"><img src="../logo.jpeg" alt="Student Hub Logo"></div>Student Hub</a>
+                <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">Dark mode</button>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="events.php">Events</a></li>
+                    <li><a href="notices.php">Notices</a></li>
+                    <li><a href="students.html" aria-current="page">Students</a></li>
+                    <li><a href="dashboard.php#profile">Profile</a></li>
+                    <li><a href="dashboard.php">Dashboard</a></li>
+                    <li><a href="feedback.html">Feedback</a></li>
+                    <li><a href="faqs.php">FAQs</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="register.html">Register</a></li>
+                </ul>
+            </header>
+
+            <section class="directory-heading">
+                <p class="eyebrow">Campus community</p>
+                <h1>Student Directory</h1>
+                <p class="text-muted">Find fellow students by name, course, year, or city.</p>
+            </section>
+
+            <section class="directory-tools" aria-label="Directory filters">
+                <div class="form-group">
+                    <label for="studentSearch">Search students</label>
+                    <input id="studentSearch" type="search" placeholder="Search by name, course, year, or city" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="programFilter">Course</label>
+                    <select id="programFilter">
+                        <option value="">All courses</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="yearFilter">Academic year</label>
+                    <select id="yearFilter">
+                        <option value="">All years</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="studentSort">Sort by</label>
+                    <select id="studentSort">
+                        <option value="name">Name (A–Z)</option>
+                        <option value="course">Course</option>
+                        <option value="year">Academic year</option>
+                    </select>
+                </div>
+            </section>
+
+            <p id="directoryStatus" class="directory-status" role="status" aria-live="polite">Loading students…</p>
+            <section id="studentsContainer" class="student-grid" aria-label="Students" aria-busy="true"></section>
+            <nav id="studentPagination" class="pagination" aria-label="Student directory pages" hidden></nav>
+        </main>
+        <footer class="footer"><p>&copy; 2026 Student Hub &middot; <a href="contact.html">Contact Us</a></p></footer>
+    </div>
+    <script src="../js/theme.js"></script>
+    <script src="../js/students.js"></script>
+</body>
+</html>

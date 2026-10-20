@@ -13,12 +13,15 @@
     <div class="container">
         <header class="navbar">
             <a href="../index.html" class="brand"><div class="logo"><img src="../logo.jpeg" alt="Student Hub Logo" /></div>Student Hub</a>
+            <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">Dark mode</button>
             <ul class="nav-links">
-                <li><a href="home.html">Home</a></li>
+                <li><a href="../index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="events.php">Events</a></li>
+                <li><a href="notices.php">Notices</a></li>
+                <li><a href="students.html">Students</a></li>
+                <li><a href="dashboard.php#profile">Profile</a></li>
                 <li><a href="dashboard.php">Dashboard</a></li>
-                <li><a href="admin.php">Admin</a></li>
                 <li><a href="feedback.html">Feedback</a></li>
                 <li><a href="faqs.php">FAQs</a></li>
                 <li><a href="login.html">Login</a></li>
@@ -55,6 +58,7 @@
         </div>
     </div>
     <script src="../js/form-security.js"></script>
+    <script src="../js/theme.js"></script>
     <script>
         const formMessage = document.getElementById('formMessage');
         const formStatus = new URLSearchParams(window.location.search);

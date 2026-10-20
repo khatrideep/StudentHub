@@ -28,5 +28,50 @@
     "id": 6,
     "question": "What if I forget my password?",
     "answer": "Use the password reset option in the login page or contact the support team."
+  },
+  {
+    "id": 7,
+    "question": "How do I update my profile?",
+    "answer": "Sign in, open your dashboard, choose Edit profile, and save your changes."
+  },
+  {
+    "id": 8,
+    "question": "How do I register for an event?",
+    "answer": "Sign in to your student account and use the RSVP button on an open event."
+  },
+  {
+    "id": 9,
+    "question": "Can I cancel an event registration?",
+    "answer": "Contact the Student Hub administrator if you need to change an event registration."
+  },
+  {
+    "id": 10,
+    "question": "Where are new announcements shown?",
+    "answer": "Open Campus Notices to view active announcements and their publication dates."
+  },
+  {
+    "id": 11,
+    "question": "Who can access the admin dashboard?",
+    "answer": "Only accounts assigned the administrator role can use the administration tools."
+  },
+  {
+    "id": 12,
+    "question": "How do I contact the support team?",
+    "answer": "Use the Contact Us form and include a reply address and a clear description."
+  },
+  {
+    "id": 13,
+    "question": "How can I submit feedback?",
+    "answer": "Open Feedback, choose a category and rating, then describe your suggestion."
+  },
+  {
+    "id": 14,
+    "question": "Why did my session expire?",
+    "answer": "For account safety, inactive sessions expire. Sign in again to continue."
+  },
+  {
+    "id": 15,
+    "question": "How is my account protected?",
+    "answer": "Passwords are hashed, forms use CSRF protection, and account access is role restricted."
   }
 ]

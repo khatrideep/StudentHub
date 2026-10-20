@@ -78,9 +78,12 @@ $csrfToken = auth_csrf_token();
         <main class="main-content">
             <header class="navbar">
                 <a href="../index.html" class="brand"><div class="logo"><img src="../logo.jpeg" alt="Student Hub Logo"></div>Student Hub</a>
+                <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">Dark mode</button>
                 <ul class="nav-links">
-                    <li><a href="home.html">Home</a></li><li><a href="about.html">About</a></li>
-                    <li><a href="events.php">Events</a></li><li><a href="dashboard.php">Dashboard</a></li>
+                    <li><a href="../index.html">Home</a></li><li><a href="about.html">About</a></li>
+                    <li><a href="events.php">Events</a></li><li><a href="notices.php">Notices</a></li>
+                    <li><a href="students.html">Students</a></li><li><a href="#profile" aria-current="page">Profile</a></li>
+                    <li><a href="dashboard.php">Dashboard</a></li>
                     <?php if (($_SESSION['student_role'] ?? '') === 'admin'): ?><li><a href="admin.php">Admin</a></li><?php endif; ?>
                     <li><a href="feedback.html">Feedback</a></li><li><a href="faqs.php">FAQs</a></li>
                     <li><a href="logout.php">Logout</a></li>
@@ -97,7 +100,7 @@ $csrfToken = auth_csrf_token();
                 <div class="card"><small>Registered events</small><strong style="font-size:1.8rem;"><?php echo count($registeredEvents); ?></strong></div>
             </div>
             <div class="grid-2">
-                <section class="panel">
+                <section class="panel" id="profile">
                     <h2>My profile</h2>
                     <p><strong>Student ID:</strong> <?php echo $escape($student['student_code']); ?></p>
                     <p><strong>Email:</strong> <?php echo $escape($student['email']); ?></p>
@@ -169,5 +172,6 @@ $csrfToken = auth_csrf_token();
             profileForm.querySelector('input[name="fullName"]').focus();
         });
     </script>
+    <script src="../js/theme.js"></script>
 </body>
 </html>

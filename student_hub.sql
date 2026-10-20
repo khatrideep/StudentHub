@@ -84,13 +84,21 @@ CREATE TABLE IF NOT EXISTS events (
     event_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     title VARCHAR(180) NOT NULL,
     description TEXT NULL,
+    category VARCHAR(80) NOT NULL DEFAULT 'General',
     starts_at DATETIME NOT NULL,
     location VARCHAR(180) NULL,
     capacity INT UNSIGNED NULL,
+    status ENUM('open', 'closed') NOT NULL DEFAULT 'open',
+    poster_path VARCHAR(255) NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (event_id),
     KEY idx_events_starts_at (starts_at)
 ) ENGINE=InnoDB;
+
+ALTER TABLE events
+    ADD COLUMN IF NOT EXISTS category VARCHAR(80) NOT NULL DEFAULT 'General' AFTER description,
+    ADD COLUMN IF NOT EXISTS status ENUM('open', 'closed') NOT NULL DEFAULT 'open' AFTER capacity,
+    ADD COLUMN IF NOT EXISTS poster_path VARCHAR(255) NULL AFTER status;
 
 CREATE TABLE IF NOT EXISTS event_registrations (
     event_id BIGINT UNSIGNED NOT NULL,
@@ -160,6 +168,22 @@ CREATE TABLE IF NOT EXISTS faq_entries (
     UNIQUE KEY uq_faq_entries_question (question)
 ) ENGINE=InnoDB;
 
+CREATE TABLE IF NOT EXISTS audit_logs (
+    audit_log_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    actor_student_id BIGINT UNSIGNED NULL,
+    action VARCHAR(80) NOT NULL,
+    entity_type VARCHAR(80) NOT NULL,
+    entity_id BIGINT UNSIGNED NULL,
+    details JSON NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (audit_log_id),
+    KEY idx_audit_logs_created_at (created_at),
+    KEY idx_audit_logs_entity (entity_type, entity_id),
+    CONSTRAINT fk_audit_logs_actor
+        FOREIGN KEY (actor_student_id) REFERENCES students (student_id)
+        ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB;
+
 INSERT IGNORE INTO faq_entries (question, answer, sort_order) VALUES
     ('How do I register?', 'Visit the Register page, fill in your personal details, and create your account.', 1),
     ('Where can I find event updates?', 'The Events page lists upcoming workshops, celebrations, and student events.', 2),
@@ -193,3 +217,28 @@ VALUES
 UPDATE students
 SET role = 'admin'
 WHERE student_code = 'SHADMIN01' AND email = 'admin@studenthub.edu';
+
+-- Inactive sample accounts provide the 20-student coursework dataset without
+-- distributing a shared login password. Reset each password before activation.
+INSERT IGNORE INTO students
+    (student_code, full_name, email, password_hash, role, program, academic_year, enrollment_date, account_status)
+VALUES
+    ('SHSTU0002', 'Aarav Sharma', 'aarav.sharma@example.invalid', '$2y$10$AbnNOGaLegODpoZWZfUX0e27udH0tZ2ruqmm1aiCXX79nkQjq1hCO', 'student', 'BSc Computer Science', '1st Year', '2025-08-01', 'inactive'),
+    ('SHSTU0003', 'Diya Patel', 'diya.patel@example.invalid', '$2y$10$AbnNOGaLegODpoZWZfUX0e27udH0tZ2ruqmm1aiCXX79nkQjq1hCO', 'student', 'BCom', '2nd Year', '2024-08-01', 'inactive'),
+    ('SHSTU0004', 'Kabir Singh', 'kabir.singh@example.invalid', '$2y$10$AbnNOGaLegODpoZWZfUX0e27udH0tZ2ruqmm1aiCXX79nkQjq1hCO', 'student', 'BBA', '3rd Year', '2023-08-01', 'inactive'),
+    ('SHSTU0005', 'Ananya Gupta', 'ananya.gupta@example.invalid', '$2y$10$AbnNOGaLegODpoZWZfUX0e27udH0tZ2ruqmm1aiCXX79nkQjq1hCO', 'student', 'BCA', '4th Year', '2022-08-01', 'inactive'),
+    ('SHSTU0006', 'Ishaan Verma', 'ishaan.verma@example.invalid', '$2y$10$AbnNOGaLegODpoZWZfUX0e27udH0tZ2ruqmm1aiCXX79nkQjq1hCO', 'student', 'BA', '1st Year', '2025-08-01', 'inactive'),
+    ('SHSTU0007', 'Meera Nair', 'meera.nair@example.invalid', '$2y$10$AbnNOGaLegODpoZWZfUX0e27udH0tZ2ruqmm1aiCXX79nkQjq1hCO', 'student', 'BSc Computer Science', '2nd Year', '2024-08-01', 'inactive'),
+    ('SHSTU0008', 'Arjun Rao', 'arjun.rao@example.invalid', '$2y$10$AbnNOGaLegODpoZWZfUX0e27udH0tZ2ruqmm1aiCXX79nkQjq1hCO', 'student', 'BCom', '3rd Year', '2023-08-01', 'inactive'),
+    ('SHSTU0009', 'Sana Khan', 'sana.khan@example.invalid', '$2y$10$AbnNOGaLegODpoZWZfUX0e27udH0tZ2ruqmm1aiCXX79nkQjq1hCO', 'student', 'BBA', '4th Year', '2022-08-01', 'inactive'),
+    ('SHSTU0010', 'Vivaan Joshi', 'vivaan.joshi@example.invalid', '$2y$10$AbnNOGaLegODpoZWZfUX0e27udH0tZ2ruqmm1aiCXX79nkQjq1hCO', 'student', 'BCA', '1st Year', '2025-08-01', 'inactive'),
+    ('SHSTU0011', 'Aditi Iyer', 'aditi.iyer@example.invalid', '$2y$10$AbnNOGaLegODpoZWZfUX0e27udH0tZ2ruqmm1aiCXX79nkQjq1hCO', 'student', 'BA', '2nd Year', '2024-08-01', 'inactive'),
+    ('SHSTU0012', 'Reyansh Shah', 'reyansh.shah@example.invalid', '$2y$10$AbnNOGaLegODpoZWZfUX0e27udH0tZ2ruqmm1aiCXX79nkQjq1hCO', 'student', 'BSc Computer Science', '3rd Year', '2023-08-01', 'inactive'),
+    ('SHSTU0013', 'Myra Das', 'myra.das@example.invalid', '$2y$10$AbnNOGaLegODpoZWZfUX0e27udH0tZ2ruqmm1aiCXX79nkQjq1hCO', 'student', 'BCom', '4th Year', '2022-08-01', 'inactive'),
+    ('SHSTU0014', 'Dev Malhotra', 'dev.malhotra@example.invalid', '$2y$10$AbnNOGaLegODpoZWZfUX0e27udH0tZ2ruqmm1aiCXX79nkQjq1hCO', 'student', 'BBA', '1st Year', '2025-08-01', 'inactive'),
+    ('SHSTU0015', 'Kiara Fernandes', 'kiara.fernandes@example.invalid', '$2y$10$AbnNOGaLegODpoZWZfUX0e27udH0tZ2ruqmm1aiCXX79nkQjq1hCO', 'student', 'BCA', '2nd Year', '2024-08-01', 'inactive'),
+    ('SHSTU0016', 'Atharv Kulkarni', 'atharv.kulkarni@example.invalid', '$2y$10$AbnNOGaLegODpoZWZfUX0e27udH0tZ2ruqmm1aiCXX79nkQjq1hCO', 'student', 'BA', '3rd Year', '2023-08-01', 'inactive'),
+    ('SHSTU0017', 'Sara Thomas', 'sara.thomas@example.invalid', '$2y$10$AbnNOGaLegODpoZWZfUX0e27udH0tZ2ruqmm1aiCXX79nkQjq1hCO', 'student', 'BSc Computer Science', '4th Year', '2022-08-01', 'inactive'),
+    ('SHSTU0018', 'Om Prakash', 'om.prakash@example.invalid', '$2y$10$AbnNOGaLegODpoZWZfUX0e27udH0tZ2ruqmm1aiCXX79nkQjq1hCO', 'student', 'BCom', '1st Year', '2025-08-01', 'inactive'),
+    ('SHSTU0019', 'Tara Bose', 'tara.bose@example.invalid', '$2y$10$AbnNOGaLegODpoZWZfUX0e27udH0tZ2ruqmm1aiCXX79nkQjq1hCO', 'student', 'BBA', '2nd Year', '2024-08-01', 'inactive'),
+    ('SHSTU0020', 'Nikhil Reddy', 'nikhil.reddy@example.invalid', '$2y$10$AbnNOGaLegODpoZWZfUX0e27udH0tZ2ruqmm1aiCXX79nkQjq1hCO', 'student', 'BCA', '3rd Year', '2023-08-01', 'inactive');

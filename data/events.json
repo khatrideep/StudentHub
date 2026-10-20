@@ -2,7 +2,7 @@
   {
     "id": 1,
     "title": "Science Fair",
-    "date": "2026-08-15",
+    "date": "2027-01-15",
     "category": "Academic",
     "description": "Explore science innovations, lab demos, and project displays across departments.",
     "venue": "Main Auditorium",
@@ -11,7 +11,7 @@
   {
     "id": 2,
     "title": "Sports Day",
-    "date": "2026-08-20",
+    "date": "2027-01-22",
     "category": "Sports",
     "description": "A campus-wide sports festival with track events, team games, and student competitions.",
     "venue": "Sports Ground",
@@ -20,7 +20,7 @@
   {
     "id": 3,
     "title": "Cultural Fest",
-    "date": "2026-09-05",
+    "date": "2027-02-05",
     "category": "Cultural",
     "description": "Dance, music, fashion, and cultural performances presented by student clubs.",
     "venue": "Open Stage",
@@ -29,7 +29,7 @@
   {
     "id": 4,
     "title": "Career Guidance Seminar",
-    "date": "2026-09-12",
+    "date": "2027-02-12",
     "category": "Career",
     "description": "Meet industry professionals and learn career planning, internships, and placement guidance.",
     "venue": "Seminar Hall",
@@ -38,7 +38,7 @@
   {
     "id": 5,
     "title": "Hackathon 2026",
-    "date": "2026-09-18",
+    "date": "2027-02-19",
     "category": "Technology",
     "description": "Build prototypes, collaborate in teams, and showcase smart solutions to real campus problems.",
     "venue": "Innovation Lab",
@@ -47,10 +47,91 @@
   {
     "id": 6,
     "title": "Leadership Summit",
-    "date": "2026-10-02",
+    "date": "2027-02-26",
     "category": "Leadership",
     "description": "A student leadership summit focused on communication, teamwork, and campus leadership.",
     "venue": "Conference Center",
     "seatsLeft": 30
+  },
+  {
+    "id": 7,
+    "title": "Research Showcase",
+    "date": "2027-03-05",
+    "category": "Academic",
+    "description": "Explore student research posters and meet faculty mentors from across campus.",
+    "venue": "Library Commons",
+    "seatsLeft": 35
+  },
+  {
+    "id": 8,
+    "title": "Community Service Day",
+    "date": "2027-03-12",
+    "category": "Community",
+    "description": "Volunteer with student groups on campus and in the surrounding community.",
+    "venue": "Student Center",
+    "seatsLeft": 60
+  },
+  {
+    "id": 9,
+    "title": "Design Thinking Lab",
+    "date": "2027-03-19",
+    "category": "Technology",
+    "description": "Practice collaborative problem solving in a hands-on design workshop.",
+    "venue": "Innovation Lab",
+    "seatsLeft": 24
+  },
+  {
+    "id": 10,
+    "title": "Literature and Poetry Evening",
+    "date": "2027-03-26",
+    "category": "Cultural",
+    "description": "Share original writing and enjoy readings from the campus community.",
+    "venue": "Reading Room",
+    "seatsLeft": 40
+  },
+  {
+    "id": 11,
+    "title": "Career and Internship Fair",
+    "date": "2027-04-02",
+    "category": "Career",
+    "description": "Meet employers and learn about internships, careers, and interview preparation.",
+    "venue": "Main Auditorium",
+    "seatsLeft": 90
+  },
+  {
+    "id": 12,
+    "title": "Wellness and Mindfulness Session",
+    "date": "2027-04-09",
+    "category": "Wellness",
+    "description": "Learn practical approaches to wellbeing, study balance, and mindfulness.",
+    "venue": "Seminar Hall",
+    "seatsLeft": 50
+  },
+  {
+    "id": 13,
+    "title": "Open Source Contribution Clinic",
+    "date": "2027-04-16",
+    "category": "Technology",
+    "description": "Get started with collaborative software projects and contribute to open source.",
+    "venue": "Computer Lab 2",
+    "seatsLeft": 28
+  },
+  {
+    "id": 14,
+    "title": "Intercollege Debate",
+    "date": "2027-04-23",
+    "category": "Leadership",
+    "description": "Join a student debate on technology, education, and the future of work.",
+    "venue": "Conference Center",
+    "seatsLeft": 45
+  },
+  {
+    "id": 15,
+    "title": "End of Semester Showcase",
+    "date": "2027-04-30",
+    "category": "Community",
+    "description": "Celebrate student projects, performances, and achievements from the semester.",
+    "venue": "Open Stage",
+    "seatsLeft": 100
   }
 ]
