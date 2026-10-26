@@ -1,0 +1,107 @@
+[
+  {
+    "id": 1,
+    "title": "Welcome to the new semester",
+    "category": "Campus",
+    "message": "Check your dashboard regularly for class updates, campus announcements, and student support information.",
+    "published_at": "2026-10-22"
+  },
+  {
+    "id": 2,
+    "title": "Keep your student profile up to date",
+    "category": "Reminder",
+    "message": "Review your contact details in your profile so important Student Hub updates can reach you.",
+    "published_at": "2026-10-20"
+  },
+  {
+    "id": 3,
+    "title": "Explore upcoming campus events",
+    "category": "Events",
+    "message": "Visit the Events page to browse workshops, student activities, and campus community events.",
+    "published_at": "2026-10-18"
+  },
+  {
+    "id": 4,
+    "title": "Stay on top of assignment deadlines",
+    "category": "Academic",
+    "message": "Check your assignments regularly and plan ahead for upcoming due dates.",
+    "published_at": "2026-10-16"
+  },
+  {
+    "id": 5,
+    "title": "Share your ideas with Student Hub",
+    "category": "Community",
+    "message": "Use the Feedback page to share suggestions that can help improve campus life.",
+    "published_at": "2026-10-13"
+  },
+  {
+    "id": 6,
+    "title": "Library study spaces are open",
+    "category": "Campus",
+    "message": "Quiet study areas are available throughout the week. Please leave shared spaces tidy for the next students.",
+    "published_at": "2026-10-11"
+  },
+  {
+    "id": 7,
+    "title": "Review your course timetable",
+    "category": "Academic",
+    "message": "Check your timetable for room or schedule changes before heading to class.",
+    "published_at": "2026-10-09"
+  },
+  {
+    "id": 8,
+    "title": "Student clubs welcome new members",
+    "category": "Community",
+    "message": "Connect with a student club to meet classmates and take part in activities across campus.",
+    "published_at": "2026-10-07"
+  },
+  {
+    "id": 9,
+    "title": "Workshop registration is open",
+    "category": "Events",
+    "message": "Browse the Events page and register for workshops that support your learning and career goals.",
+    "published_at": "2026-10-05"
+  },
+  {
+    "id": 10,
+    "title": "Take a wellbeing break",
+    "category": "Wellbeing",
+    "message": "Remember to take regular breaks, stay hydrated, and make time for rest during busy study weeks.",
+    "published_at": "2026-10-03"
+  },
+  {
+    "id": 11,
+    "title": "Keep campus contact details handy",
+    "category": "Reminder",
+    "message": "Save the Student Hub contact information so you can find support when you need it.",
+    "published_at": "2026-10-01"
+  },
+  {
+    "id": 12,
+    "title": "Prepare for upcoming assessments",
+    "category": "Academic",
+    "message": "Use your assignment list to review upcoming deadlines and organize your study plan.",
+    "published_at": "2026-09-29"
+  },
+  {
+    "id": 13,
+    "title": "Share feedback on campus activities",
+    "category": "Community",
+    "message": "Your feedback helps the student community plan useful events and improve campus activities.",
+    "published_at": "2026-09-27"
+  },
+  {
+    "id": 14,
+    "title": "Find upcoming student events",
+    "category": "Events",
+    "message": "New student activities are listed on the Events page. Check back for updates throughout the term.",
+    "published_at": "2026-09-25"
+  },
+  {
+    "id": 15,
+    "title": "Make use of student support resources",
+    "category": "Wellbeing",
+    "message": "Explore the support resources available to students and reach out when you need assistance.",
+    "published_at": "2026-09-23"
+  }
+]

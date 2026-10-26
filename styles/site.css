@@ -33,7 +33,7 @@ body.site-page {
 }
 
 body.site-page,
-body.auth-page {
+body.auth-page:not(.auth-register) {
     filter: grayscale(1);
 }
 

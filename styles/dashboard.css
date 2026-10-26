@@ -133,6 +133,238 @@
             gap: 14px;
         }
 
+        .engage-students-section {
+            margin: 24px 0;
+        }
+
+        .engage-students-heading {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .engage-students-heading h2 {
+            margin-bottom: 6px;
+        }
+
+        .engage-students-heading p {
+            max-width: 65ch;
+        }
+
+        .engage-students-heading .btn {
+            flex: 0 0 auto;
+        }
+
+        .engage-students-tools {
+            display: grid;
+            grid-template-columns: minmax(220px, 2fr) repeat(3, minmax(140px, 1fr));
+            gap: 14px;
+            margin-bottom: 12px;
+            padding: 18px;
+            border: 1px solid #dedede;
+            border-radius: 14px;
+            background: #f7f7f7;
+        }
+
+        .engage-students-tools .form-group {
+            min-width: 0;
+            margin: 0;
+        }
+
+        .engage-students-tools label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.82rem;
+            font-weight: 700;
+        }
+
+        .engage-students-tools input,
+        .engage-students-tools select {
+            width: 100%;
+            min-height: 44px;
+            padding: 9px 11px;
+            border: 1px solid #bdbdbd;
+            border-radius: 8px;
+            background: #fff;
+            color: #111;
+            font: inherit;
+        }
+
+        .engage-students-status {
+            min-height: 24px;
+            margin: 12px 2px;
+            color: #555;
+        }
+
+        .engage-students-status[data-state="error"] {
+            color: #a12b2b;
+        }
+
+        body.site-page #studentsContainer.student-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            align-items: stretch;
+            gap: 16px;
+        }
+
+        body.site-page #studentsContainer.student-grid > .student-card {
+            min-width: 0;
+            min-height: 100%;
+            padding: 20px;
+            border: 1px solid #dedede;
+            border-radius: 14px;
+            background: #fff;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.045);
+            transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+        }
+
+        body.site-page #studentsContainer.student-grid > .student-card:hover {
+            transform: translateY(-2px);
+            border-color: #aaa;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.09);
+        }
+
+        body.site-page #studentsContainer.student-grid > .student-card h2 {
+            margin-bottom: 12px;
+            overflow-wrap: anywhere;
+        }
+
+        body.site-page #studentsContainer.student-grid > .student-card dl {
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr);
+            gap: 7px 10px;
+            margin: 0;
+        }
+
+        body.site-page #studentsContainer.student-grid > .student-card dt {
+            color: #555;
+            font-weight: 650;
+        }
+
+        body.site-page #studentsContainer.student-grid > .student-card dd {
+            min-width: 0;
+            margin: 0;
+            overflow-wrap: anywhere;
+        }
+
+        body.site-page #studentsContainer.student-grid > .student-card a {
+            color: #111;
+            text-decoration: underline;
+        }
+
+        .engage-students-pagination {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .engage-students-pagination [aria-current="page"] {
+            color: #555;
+        }
+
+        body.site-page.dark-theme .engage-students-tools {
+            border-color: #414141;
+            background: #242424;
+        }
+
+        body.site-page.dark-theme .engage-students-tools label,
+        body.site-page.dark-theme .student-card dt,
+        body.site-page.dark-theme .student-card a {
+            color: #eee;
+        }
+
+        body.site-page.dark-theme .engage-students-tools input,
+        body.site-page.dark-theme .engage-students-tools select {
+            border-color: #555;
+            background: #171717;
+            color: #f5f5f5;
+        }
+
+        body.site-page.dark-theme #studentsContainer.student-grid > .student-card {
+            border-color: #414141;
+            background: #1d1d1d;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+        }
+
+        body.site-page.dark-theme #studentsContainer.student-grid > .student-card:hover {
+            border-color: #777;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .dashboard-notices {
+            margin: 24px 0;
+        }
+
+        .dashboard-notices > h2 {
+            margin-bottom: 18px;
+        }
+
+        .dashboard-admin-notice-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .dashboard-admin-notice {
+            padding: 16px 18px;
+            border: 1px solid #d8d8d8;
+            border-left: 4px solid #222;
+            border-radius: 12px;
+            background: #fafafa;
+        }
+
+        .dashboard-admin-notice h3 {
+            margin: 10px 0 6px;
+        }
+
+        .dashboard-admin-notice p {
+            margin-bottom: 8px;
+        }
+
+        .dashboard-admin-notice time {
+            color: #666;
+            font-size: 0.82rem;
+        }
+
+        .dashboard-admin-notice-label {
+            display: inline-flex;
+            align-items: center;
+            min-height: 25px;
+            padding: 4px 10px;
+            border: 1px solid #d6d6d6;
+            border-radius: 999px;
+            background: #eee;
+            color: #333;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .empty-dashboard-notices {
+            color: #555;
+        }
+
+        body.site-page.dark-theme .dashboard-admin-notice {
+            border-color: #414141;
+            border-left-color: #eee;
+            background: #242424;
+        }
+
+        body.site-page.dark-theme .dashboard-admin-notice time,
+        body.site-page.dark-theme .empty-dashboard-notices {
+            color: #ccc;
+        }
+
+        body.site-page.dark-theme .dashboard-admin-notice-label {
+            border-color: #555;
+            background: #303030;
+            color: #f2f2f2;
+        }
+
         .tabs {
             display: flex;
             gap: 10px;
@@ -432,6 +664,22 @@
             }
         }
 
+        @media (max-width: 900px) {
+            .engage-students-tools {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .engage-students-tools .form-group:first-child {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 900px) {
+            body.site-page #studentsContainer.student-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
         @media (max-width: 700px) {
             .navbar {
                 flex-direction: column;
@@ -441,6 +689,27 @@
 
             .page-wrapper {
                 padding: 15px 15px 0;
+            }
+
+            body.site-page #studentsContainer.student-grid {
+                grid-template-columns: 1fr;
+            }
+
+            body.site-page #studentsContainer.student-grid > .student-card {
+                min-height: auto;
+            }
+
+            .engage-students-heading {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .engage-students-tools {
+                grid-template-columns: 1fr;
+            }
+
+            .engage-students-tools .form-group:first-child {
+                grid-column: auto;
             }
 
             .tabs {
@@ -456,6 +725,10 @@
         @media (max-width: 520px) {
             .profile-overview {
                 flex-wrap: wrap;
+            }
+
+            .dashboard-admin-notice {
+                padding: 15px;
             }
 
             .profile-heading {

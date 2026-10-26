@@ -43,13 +43,13 @@
             margin-bottom: 20px;
         }
 
-        .auth-message {
+        body.auth-page.auth-register .auth-message {
             margin: 0 0 16px;
             padding: 10px 12px;
             border: 1px solid #d93025;
             border-radius: 8px;
             background: #fff6f6;
-            color: #a50e0e;
+            color: #a50e0e !important;
             font-size: 0.9rem;
         }
 
@@ -96,17 +96,27 @@
             margin-bottom: 14px;
         }
 
-        .input-error {
+        body.auth-page.auth-register input.input-error,
+        body.auth-page.auth-register select.input-error,
+        body.auth-page.auth-register input.password-mismatch {
             border-color: #d93025 !important;
-            background: #fff6f6;
+            background: #fff6f6 !important;
+            box-shadow: 0 0 0 2px rgba(217, 48, 37, 0.14);
         }
 
-        .error-message {
+        body.auth-page.auth-register input[type="radio"].input-error,
+        body.auth-page.auth-register input[type="checkbox"].input-error {
+            accent-color: #d93025;
+        }
+
+        body.auth-page.auth-register .form-group > .error-message,
+        body.auth-page.auth-register > .page-wrapper > form > .error-message {
             display: block;
             min-height: 18px;
             margin-top: 6px;
-            color: #d93025;
+            color: #d93025 !important;
             font-size: 0.78rem;
+            font-weight: 700;
         }
 
         .two-col {

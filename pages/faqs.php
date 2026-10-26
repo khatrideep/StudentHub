@@ -3,6 +3,16 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/auth-db.php';
 auth_start_session();
+
+$faqJson = file_get_contents(__DIR__ . '/../data/faqs.json');
+if ($faqJson === false) {
+    throw new RuntimeException('Unable to read the FAQ data file.');
+}
+
+$faqs = json_decode($faqJson, true, 512, JSON_THROW_ON_ERROR);
+if (!is_array($faqs) || count($faqs) < 5) {
+    throw new RuntimeException('The FAQ data must contain at least five questions.');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,18 +42,24 @@ auth_start_session();
             </header>
             <section aria-labelledby="faqHeading">
                 <h1 id="faqHeading">Frequently Asked Questions</h1>
-                <p class="text-muted">Search the help topics or open a question to see its answer.</p>
-                <div class="faq-controls">
-                    <label for="faqSearch">Search questions</label>
-                    <input id="faqSearch" type="search" placeholder="Search accounts, events, support…" autocomplete="off">
+                <p class="text-muted">Select a question to see its answer.</p>
+                <div class="faq-grid">
+                    <?php foreach ($faqs as $faq): ?>
+                        <?php
+                        if (!is_array($faq) || !isset($faq['question'], $faq['answer']) || !is_string($faq['question']) || !is_string($faq['answer'])) {
+                            throw new RuntimeException('The FAQ data contains an invalid question or answer.');
+                        }
+                        ?>
+                        <details class="card faq-question">
+                            <summary class="faq-trigger"><?= htmlspecialchars($faq['question'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?></summary>
+                            <p class="text-muted faq-answer"><?= htmlspecialchars($faq['answer'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?></p>
+                        </details>
+                    <?php endforeach; ?>
                 </div>
-                <p id="faqStatus" role="status" aria-live="polite">Loading questions…</p>
-                <div id="faqList" class="faq-grid" aria-busy="true"></div>
             </section>
         </main>
         <footer class="footer"><p>&copy; 2026 Student Hub &middot; <a href="contact.html">Contact Us</a></p></footer>
     </div>
-    <script src="../js/faqs.js"></script>
     <script src="../js/theme.js"></script>
 </body>
 </html>

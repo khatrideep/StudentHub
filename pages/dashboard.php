@@ -41,11 +41,6 @@ $assignmentStatement->execute();
 $assignments = $assignmentStatement->get_result()->fetch_all(MYSQLI_ASSOC);
 $assignmentStatement->close();
 
-$noticeQuery = $database->query(
-    'SELECT title, body, published_at FROM notices WHERE expires_at IS NULL OR expires_at >= NOW()
-     ORDER BY published_at DESC LIMIT 10'
-);
-$notices = $noticeQuery->fetch_all(MYSQLI_ASSOC);
 $eventStatement = $database->prepare(
     "SELECT e.title, e.starts_at, e.location, r.registration_status
      FROM event_registrations r JOIN events e ON e.event_id = r.event_id
@@ -56,6 +51,10 @@ $eventStatement->bind_param('i', $studentId);
 $eventStatement->execute();
 $registeredEvents = $eventStatement->get_result()->fetch_all(MYSQLI_ASSOC);
 $eventStatement->close();
+$notices = $database->query(
+    'SELECT title, body, published_at FROM notices WHERE expires_at IS NULL OR expires_at >= NOW()
+     ORDER BY published_at DESC LIMIT 10'
+)->fetch_all(MYSQLI_ASSOC);
 $database->close();
 
 $escape = static fn (string $value): string => htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
@@ -70,7 +69,7 @@ $csrfToken = auth_csrf_token();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Hub - Dashboard</title>
-    <link rel="stylesheet" href="../styles/dashboard.css">
+    <link rel="stylesheet" href="../styles/dashboard.css?v=3">
     <link rel="stylesheet" href="../styles/site.css">
 </head>
 <body class="site-page">
@@ -99,6 +98,45 @@ $csrfToken = auth_csrf_token();
                 <div class="card"><small>To complete</small><strong style="font-size:1.8rem;"><?php echo $pendingAssignments; ?></strong></div>
                 <div class="card"><small>Registered events</small><strong style="font-size:1.8rem;"><?php echo count($registeredEvents); ?></strong></div>
             </div>
+            <section class="panel engage-students-section" aria-labelledby="engageStudentsHeading">
+                <div class="engage-students-heading">
+                    <div>
+                        <h2 id="engageStudentsHeading">Engage with students</h2>
+                        <p class="text-muted">Discover students by name, course, year, or city and connect with the campus community.</p>
+                    </div>
+                    <a class="btn btn-outline" href="students.html">View student directory</a>
+                </div>
+                <div class="engage-students-tools" aria-label="Search, filter, and sort students">
+                    <div class="form-group">
+                        <label for="studentSearch">Search students</label>
+                        <input id="studentSearch" type="search" placeholder="Search name, course, year, or city" autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="programFilter">Course</label>
+                        <select id="programFilter">
+                            <option value="">All courses</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="yearFilter">Academic year</label>
+                        <select id="yearFilter">
+                            <option value="">All years</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentSort">Sort by</label>
+                        <select id="studentSort">
+                            <option value="name">Name (A–Z)</option>
+                            <option value="course">Course</option>
+                            <option value="year">Academic year</option>
+                            <option value="city">City</option>
+                        </select>
+                    </div>
+                </div>
+                <p id="directoryStatus" class="engage-students-status" role="status" aria-live="polite">Loading students…</p>
+                <div id="studentsContainer" class="student-grid" aria-label="Students" aria-busy="true"></div>
+                <nav id="studentPagination" class="engage-students-pagination" aria-label="Student directory pages" hidden></nav>
+            </section>
             <div class="grid-2">
                 <section class="panel" id="profile">
                     <h2>My profile</h2>
@@ -125,14 +163,21 @@ $csrfToken = auth_csrf_token();
                         <button type="button" class="btn btn-outline" id="cancelProfileEdit">Cancel</button>
                     </form>
                 </section>
-                <section class="panel">
-                    <h2>Notices</h2>
-                    <?php foreach ($notices as $notice): ?>
-                        <article><h3><?php echo $escape($notice['title']); ?></h3><p><?php echo nl2br($escape($notice['body'])); ?></p><small><?php echo $escape($notice['published_at']); ?></small></article>
-                    <?php endforeach; ?>
-                    <?php if (!$notices): ?><p>There are no current notices.</p><?php endif; ?>
-                </section>
             </div>
+            <section class="panel dashboard-notices">
+                <h2>Notices</h2>
+                <div class="dashboard-admin-notice-list">
+                    <?php foreach ($notices as $notice): ?>
+                    <article class="dashboard-admin-notice">
+                        <span class="dashboard-admin-notice-label">Admin notice</span>
+                        <h3><?php echo $escape($notice['title']); ?></h3>
+                        <p><?php echo nl2br($escape($notice['body'])); ?></p>
+                        <time datetime="<?php echo $escape(date('c', strtotime($notice['published_at']))); ?>"><?php echo $escape(date('F j, Y', strtotime($notice['published_at']))); ?></time>
+                    </article>
+                    <?php endforeach; ?>
+                    <?php if (!$notices): ?><p class="empty-dashboard-notices">There are no current admin notices.</p><?php endif; ?>
+                </div>
+            </section>
             <section class="panel">
                 <h2>My assignments</h2>
                 <?php if ($assignments): ?>
@@ -173,5 +218,6 @@ $csrfToken = auth_csrf_token();
         });
     </script>
     <script src="../js/theme.js"></script>
+    <script src="../js/students.js"></script>
 </body>
 </html>

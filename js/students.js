@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     yearFilter.addEventListener('change', onFilterChange);
     try {
         const savedSort = localStorage.getItem('studenthub-directory-sort');
-        if (['name', 'course', 'year'].includes(savedSort)) {
+        if (['name', 'course', 'year', 'city'].includes(savedSort)) {
             sortSelect.value = savedSort;
         }
     } catch (error) {

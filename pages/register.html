@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Student Hub - Register</title>
-    <link rel="stylesheet" href="../styles/register.css" />
-    <link rel="stylesheet" href="../styles/site.css" />
+    <link rel="stylesheet" href="../styles/site.css?v=2" />
+    <link rel="stylesheet" href="../styles/register.css?v=3" />
   </head>
 
   <body class="auth-page auth-register">
@@ -188,6 +188,15 @@
         }
         if (input) {
           input.classList.toggle("input-error", Boolean(message));
+          input.setAttribute(
+            "aria-invalid",
+            String(Boolean(message) || input.classList.contains("password-mismatch")),
+          );
+        } else if (fieldId === "gender") {
+          document.querySelectorAll('input[name="gender"]').forEach((radio) => {
+            radio.classList.toggle("input-error", Boolean(message));
+            radio.setAttribute("aria-invalid", String(Boolean(message)));
+          });
         }
       }
 
@@ -230,6 +239,27 @@
           return false;
         }
         setError("mobile", "");
+        return true;
+      }
+
+      function validateDateOfBirth() {
+        const value = document.getElementById("dob").value;
+        const [year, month, day] = value.split("-").map(Number);
+        const selectedDate = new Date(year, month - 1, day);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const validDate =
+          /^\d{4}-\d{2}-\d{2}$/.test(value) &&
+          selectedDate.getFullYear() === year &&
+          selectedDate.getMonth() === month - 1 &&
+          selectedDate.getDate() === day &&
+          selectedDate <= today;
+
+        if (!validDate) {
+          setError("dob", "Please enter a valid date of birth that is not in the future.");
+          return false;
+        }
+        setError("dob", "");
         return true;
       }
 
@@ -278,16 +308,30 @@
       }
 
       function validateConfirmPassword() {
-        const password = document.getElementById("password").value;
-        const confirm = document.getElementById("confirmPassword").value;
+        const passwordInput = document.getElementById("password");
+        const confirmInput = document.getElementById("confirmPassword");
+        const password = passwordInput.value;
+        const confirm = confirmInput.value;
+
         if (!confirm) {
+          passwordInput.classList.remove("password-mismatch");
           setError("confirmPassword", "Please confirm your password.");
           return false;
         }
         if (password !== confirm) {
+          passwordInput.classList.add("password-mismatch");
+          passwordInput.setAttribute("aria-invalid", "true");
+          confirmInput.classList.add("password-mismatch");
           setError("confirmPassword", "Passwords do not match.");
           return false;
         }
+
+        passwordInput.classList.remove("password-mismatch");
+        confirmInput.classList.remove("password-mismatch");
+        passwordInput.setAttribute(
+          "aria-invalid",
+          String(passwordInput.classList.contains("input-error")),
+        );
         setError("confirmPassword", "");
         return true;
       }
@@ -309,6 +353,7 @@
       document
         .getElementById("mobile")
         .addEventListener("blur", validateMobile);
+      document.getElementById("dob").addEventListener("blur", validateDateOfBirth);
       document
         .getElementById("course")
         .addEventListener("change", validateCourse);
@@ -322,6 +367,14 @@
       document
         .getElementById("confirmPassword")
         .addEventListener("blur", validateConfirmPassword);
+      document.getElementById("password").addEventListener("input", () => {
+        if (document.getElementById("confirmPassword").value) {
+          validateConfirmPassword();
+        }
+      });
+      document
+        .getElementById("confirmPassword")
+        .addEventListener("input", validateConfirmPassword);
       document
         .getElementById("terms")
         .addEventListener("change", validateTerms);
@@ -331,6 +384,7 @@
           validateName(),
           validateEmail(),
           validateMobile(),
+          validateDateOfBirth(),
           validateCourse(),
           validateYear(),
           validateGender(),
@@ -352,6 +406,8 @@
         terms: "You must accept the terms and conditions.",
         database:
           "Registration is temporarily unavailable. Please try again later.",
+        export:
+          "Registration could not be completed because secure data storage is unavailable. Please try again later.",
       };
       const registrationError = new URLSearchParams(window.location.search).get(
         "error",
@@ -360,6 +416,36 @@
       if (registrationMessages[registrationError]) {
         authMessage.textContent = registrationMessages[registrationError];
         authMessage.hidden = false;
+      }
+
+      const serverFieldMessages = {
+        fullName: rules.fullName.message,
+        mobile: rules.mobile.message,
+        email: rules.email.message,
+        dob: "Please enter a valid date of birth that is not in the future.",
+        course: "Please select your course.",
+        year: "Please select your year.",
+        gender: "Please select your gender.",
+        password: rules.password.message,
+        confirmPassword: "Passwords do not match.",
+        terms: "You must accept the terms and conditions.",
+      };
+      const invalidFields = (
+        new URLSearchParams(window.location.search).get("fields") || ""
+      ).split(",");
+      invalidFields.forEach((fieldId) => {
+        if (serverFieldMessages[fieldId]) {
+          setError(fieldId, serverFieldMessages[fieldId]);
+        }
+      });
+      if (invalidFields.includes("confirmPassword") || registrationError === "password_mismatch") {
+        document.getElementById("password").classList.add("password-mismatch");
+        document.getElementById("password").setAttribute("aria-invalid", "true");
+        document.getElementById("confirmPassword").classList.add("password-mismatch");
+        setError("confirmPassword", "Passwords do not match.");
+      }
+      if (registrationError === "email_taken") {
+        setError("email", registrationMessages.email_taken);
       }
     </script>
     <script src="../js/form-security.js"></script>

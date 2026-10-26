@@ -24,7 +24,7 @@ $escape = static fn (string $value): string => htmlspecialchars($value, ENT_QUOT
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Hub - Events</title>
-    <link rel="stylesheet" href="../styles/events.css">
+    <link rel="stylesheet" href="../styles/events.css?v=3">
     <link rel="stylesheet" href="../styles/site.css">
 </head>
 <body class="site-page">
@@ -50,37 +50,82 @@ $escape = static fn (string $value): string => htmlspecialchars($value, ENT_QUOT
             <?php elseif (isset($_GET['error'])): ?>
                 <p class="auth-message" role="alert">We could not complete that request. Please try again or sign in.</p>
             <?php endif; ?>
-            <div class="grid-3">
-                <?php foreach ($events as $event): ?>
-                    <article class="card">
-                        <?php if (!empty($event['poster_path'])): ?><img class="event-poster" src="../<?php echo $escape($event['poster_path']); ?>" alt="<?php echo $escape($event['title']); ?> event poster" loading="lazy"><?php endif; ?>
-                        <span class="tag"><?php echo $escape(date('M j, Y', strtotime($event['starts_at']))); ?></span>
-                        <span class="tag"><?php echo $escape($event['category']); ?></span>
-                        <h2><?php echo $escape($event['title']); ?></h2>
-                        <p><?php echo nl2br($escape($event['description'] ?? '')); ?></p>
-                        <p class="text-muted"><?php echo $escape($event['location'] ?? 'Location to be announced'); ?></p>
-                        <?php if ($event['capacity'] !== null): ?>
-                            <p class="text-muted"><?php echo max(0, (int) $event['capacity'] - (int) $event['registration_count']); ?> places remaining</p>
-                        <?php endif; ?>
-                        <?php if ($event['status'] !== 'open'): ?>
-                            <span class="btn" aria-label="Registration is closed">Registration closed</span>
-                        <?php elseif ((int) $event['is_registered'] === 1): ?>
-                            <span class="btn" aria-label="Registration confirmed">Registered</span>
-                        <?php elseif (empty($_SESSION['student_id'])): ?>
-                            <a class="btn" href="login.html">Log in to RSVP</a>
-                        <?php else: ?>
-                            <form method="post" action="actions.php?action=event-register" data-csrf>
-                                <input type="hidden" name="event_id" value="<?php echo (int) $event['event_id']; ?>">
-                                <button type="submit" class="btn">RSVP</button>
-                            </form>
-                        <?php endif; ?>
-                    </article>
-                <?php endforeach; ?>
-            </div>
-            <?php if (!$events): ?><p>No upcoming events are scheduled right now.</p><?php endif; ?>
+            <section class="sample-events-section" aria-labelledby="sampleEventsHeading">
+                <div class="events-section-heading">
+                    <div>
+                        <h2 id="sampleEventsHeading">Upcoming events</h2>
+                        <p class="text-muted">Browse events from our events list. Search, filter, or sort to find one.</p>
+                    </div>
+                </div>
+                <div class="event-controls" aria-label="Search and filter events">
+                    <div class="event-control event-search">
+                        <label for="eventSearch">Search events</label>
+                        <input id="eventSearch" type="search" placeholder="Search title, venue, or details" autocomplete="off">
+                    </div>
+                    <div class="event-control">
+                        <label for="eventCategory">Category</label>
+                        <select id="eventCategory">
+                            <option value="">All categories</option>
+                        </select>
+                    </div>
+                    <div class="event-control">
+                        <label for="eventSort">Sort by</label>
+                        <select id="eventSort">
+                            <option value="date-asc">Date: soonest first</option>
+                            <option value="date-desc">Date: latest first</option>
+                            <option value="title-asc">Title: A to Z</option>
+                            <option value="seats-asc">Places: fewest first</option>
+                            <option value="seats-desc">Places: most first</option>
+                        </select>
+                    </div>
+                </div>
+                <p id="sampleEventStatus" class="event-status" role="status" aria-live="polite" aria-busy="true">Loading events…</p>
+                <div id="sampleEventList" class="grid-3" aria-label="Events loaded from the events JSON file"></div>
+                <nav id="eventPagination" class="event-pagination" aria-label="Event pages" hidden></nav>
+            </section>
+
+            <?php if ($events): ?>
+                <section class="live-events-section" aria-labelledby="liveEventsHeading">
+                    <h2 id="liveEventsHeading">Live events and registration</h2>
+                    <p class="text-muted">These events are managed by Student Hub and support RSVP registration.</p>
+                <div class="grid-3">
+                    <?php foreach ($events as $event): ?>
+                        <article class="card">
+                            <?php if (!empty($event['poster_path'])): ?><img class="event-poster" src="../<?php echo $escape($event['poster_path']); ?>" alt="<?php echo $escape($event['title']); ?> event poster" loading="lazy"><?php endif; ?>
+                            <span class="tag"><?php echo $escape(date('M j, Y', strtotime($event['starts_at']))); ?></span>
+                            <span class="tag"><?php echo $escape($event['category']); ?></span>
+                            <h2><?php echo $escape($event['title']); ?></h2>
+                            <p><?php echo nl2br($escape($event['description'] ?? '')); ?></p>
+                            <p class="text-muted"><?php echo $escape($event['location'] ?? 'Location to be announced'); ?></p>
+                            <?php if ($event['capacity'] !== null): ?>
+                                <p class="text-muted"><?php echo max(0, (int) $event['capacity'] - (int) $event['registration_count']); ?> places remaining</p>
+                            <?php endif; ?>
+                            <?php if ($event['status'] !== 'open'): ?>
+                                <span class="btn" aria-label="Registration is closed">Registration closed</span>
+                            <?php elseif ((int) $event['is_registered'] === 1): ?>
+                                <span class="btn" aria-label="Registration confirmed">Registered</span>
+                            <?php elseif (empty($_SESSION['student_id'])): ?>
+                                <a class="btn" href="login.html">Log in to RSVP</a>
+                            <?php else: ?>
+                                <form method="post" action="actions.php?action=event-register" data-csrf>
+                                    <input type="hidden" name="event_id" value="<?php echo (int) $event['event_id']; ?>">
+                                    <button type="submit" class="btn">RSVP</button>
+                                </form>
+                            <?php endif; ?>
+                        </article>
+                    <?php endforeach; ?>
+                </div>
+                </section>
+            <?php else: ?>
+                <section class="live-events-section" aria-labelledby="liveEventsHeading">
+                    <h2 id="liveEventsHeading">Live event registration</h2>
+                    <p class="text-muted">There are no live events available for RSVP right now. The events above are sample listings and do not accept registrations.</p>
+                </section>
+            <?php endif; ?>
         </main>
     </div>
     <script src="../js/form-security.js"></script>
     <script src="../js/theme.js"></script>
+    <script src="../js/events.js"></script>
 </body>
 </html>

@@ -1,179 +1,323 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Student Hub</title>
-    <link rel="stylesheet" href="styles/index.css">
-    <link rel="stylesheet" href="styles/site.css">
-</head>
+    <link rel="stylesheet" href="styles/index.css" />
+    <link rel="stylesheet" href="styles/site.css" />
+    <link rel="stylesheet" href="styles/welcome-popup.css?v=1" />
+  </head>
 
-<body class="site-page">
-
+  <body class="site-page">
     <div class="notification-banner" role="status" aria-live="polite">
-        <span>New student orientation registration is now open for this semester.</span>
-        <button class="close-banner" type="button" aria-label="Close notification">×</button>
+      <span
+        >New student orientation registration is now open for this
+        semester.</span
+      >
+      <button
+        class="close-banner"
+        type="button"
+        aria-label="Close notification"
+      >
+        ×
+      </button>
     </div>
 
     <div class="page-wrapper">
-        <div class="main-content">
+      <div class="main-content">
+        <header class="navbar">
+          <a href="index.html" class="brand">
+            <div class="logo">
+              <img src="logo.jpeg" alt="Student Hub Logo" />
+            </div>
+            Student Hub
+          </a>
+          <button
+            class="hamburger"
+            type="button"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+          >
+            <span></span><span></span><span></span>
+          </button>
+          <ul class="nav-links" id="main-nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="pages/about.html">About</a></li>
+            <li><a href="pages/events.php">Events</a></li>
+            <li><a href="pages/notices.php">Notices</a></li>
+            <li><a href="pages/students.html">Students</a></li>
+            <li><a href="pages/dashboard.php#profile">Profile</a></li>
+            <li><a href="pages/dashboard.php">Dashboard</a></li>
+            <li><a href="pages/feedback.html">Feedback</a></li>
+            <li><a href="pages/faqs.php">FAQs</a></li>
+            <li><a href="pages/login.html">Login</a></li>
+            <li><a href="pages/register.html">Register</a></li>
+          </ul>
+          <button
+            class="theme-toggle"
+            type="button"
+            aria-label="Switch to dark theme"
+            aria-pressed="false"
+          >
+            Dark mode
+          </button>
+        </header>
 
-            <header class="navbar">
-                <a href="index.html" class="brand">
-                    <div class="logo"><img src="logo.jpeg" alt="Student Hub Logo" /></div>Student Hub
-                </a>
-                <button class="hamburger" type="button" aria-label="Open navigation menu" aria-expanded="false">
-                    <span></span><span></span><span></span>
-                </button>
-                <ul class="nav-links" id="main-nav">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="pages/about.html">About</a></li>
-                    <li><a href="pages/events.php">Events</a></li>
-                    <li><a href="pages/notices.php">Notices</a></li>
-                    <li><a href="pages/students.html">Students</a></li>
-                    <li><a href="pages/dashboard.php#profile">Profile</a></li>
-                    <li><a href="pages/dashboard.php">Dashboard</a></li>
-                    <li><a href="pages/feedback.html">Feedback</a></li>
-                    <li><a href="pages/faqs.php">FAQs</a></li>
-                    <li><a href="pages/login.html">Login</a></li>
-                    <li><a href="pages/register.html">Register</a></li>
-                </ul>
-                <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">Dark mode</button>
-            </header>
+        <section class="hero">
+          <div>
+            <h1>Welcome to Student Hub</h1>
+            <p style="color: #444; margin-bottom: 16px">
+              Everything students need in one place: notices, events, dashboard
+              insights, and support.
+            </p>
+            <div class="inline-flex">
+              <a href="pages/events.php" class="btn">Explore events</a>
+              <button
+                class="btn btn-outline"
+                type="button"
+                data-open-modal="student-modal"
+              >
+                View guide
+              </button>
+            </div>
+          </div>
+          <div class="hero-panel">
+            <h3 style="margin-bottom: 8px">Quick overview</h3>
+            <div class="stat-grid">
+              <div class="stat-item">
+                <small>Upcoming events</small
+                ><strong data-home-stat="events">—</strong>
+              </div>
+              <div class="stat-item">
+                <small>Current notices</small
+                ><strong data-home-stat="notices">—</strong>
+              </div>
+              <div class="stat-item">
+                <small>Next event</small
+                ><strong data-home-stat="nextEvent">—</strong>
+              </div>
+            </div>
+          </div>
+        </section>
 
-            <section class="hero">
-                <div>
-                    <h1>Welcome to Student Hub</h1>
-                    <p style="color:#444; margin-bottom: 16px;">Everything students need in one place: notices, events,
-                        dashboard insights, and support.</p>
-                    <div class="inline-flex">
-                        <a href="pages/events.php" class="btn">Explore events</a>
-                        <button class="btn btn-outline" type="button" data-open-modal="student-modal">View guide</button>
-                    </div>
-                </div>
-                <div class="hero-panel">
-                    <h3 style="margin-bottom: 8px;">Quick overview</h3>
-                    <div class="stat-grid">
-                        <div class="stat-item"><small>Upcoming events</small><strong data-home-stat="events">—</strong></div>
-                        <div class="stat-item"><small>Current notices</small><strong data-home-stat="notices">—</strong></div>
-                        <div class="stat-item"><small>Next event</small><strong data-home-stat="nextEvent">—</strong></div>
-                    </div>
-                </div>
-            </section>
+        <section class="slider-section" aria-label="Featured campus highlights">
+          <div class="slider">
+            <article class="slide is-active">
+              <div class="slide-copy">
+                <span>Featured event</span>
+                <h2>Leadership Summit</h2>
+                <p>
+                  Meet student leaders, discover club opportunities, and learn
+                  how to grow campus community involvement.
+                </p>
+              </div>
+              <img
+                src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80"
+                alt="Students collaborating at a campus event"
+              />
+            </article>
+            <article class="slide">
+              <div class="slide-copy">
+                <span>Academic support</span>
+                <h2>Smart dashboards</h2>
+                <p>
+                  Track notices, workshops, and your study schedule from a
+                  single, easy-to-use student dashboard.
+                </p>
+              </div>
+              <img
+                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80"
+                alt="Students studying together in a classroom"
+              />
+            </article>
+            <article class="slide">
+              <div class="slide-copy">
+                <span>Campus life</span>
+                <h2>Community-first experience</h2>
+                <p>
+                  Enjoy events, student feedback, and support systems designed
+                  to help you thrive throughout the semester.
+                </p>
+              </div>
+              <img
+                src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=80"
+                alt="Students enjoying campus social gathering"
+              />
+            </article>
+          </div>
+          <div class="slider-controls">
+            <button
+              class="slider-btn slider-prev"
+              type="button"
+              aria-label="Previous slide"
+            >
+              ←
+            </button>
+            <div class="slider-dots" aria-label="Choose slide">
+              <button
+                class="slider-dot is-active"
+                type="button"
+                aria-label="Go to slide 1"
+              ></button>
+              <button
+                class="slider-dot"
+                type="button"
+                aria-label="Go to slide 2"
+              ></button>
+              <button
+                class="slider-dot"
+                type="button"
+                aria-label="Go to slide 3"
+              ></button>
+            </div>
+            <button
+              class="slider-btn slider-next"
+              type="button"
+              aria-label="Next slide"
+            >
+              →
+            </button>
+          </div>
+        </section>
 
-            <section class="slider-section" aria-label="Featured campus highlights">
-                <div class="slider">
-                    <article class="slide is-active">
-                        <div class="slide-copy">
-                            <span>Featured event</span>
-                            <h2>Leadership Summit</h2>
-                            <p>Meet student leaders, discover club opportunities, and learn how to grow campus community involvement.</p>
-                        </div>
-                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80" alt="Students collaborating at a campus event" />
-                    </article>
-                    <article class="slide">
-                        <div class="slide-copy">
-                            <span>Academic support</span>
-                            <h2>Smart dashboards</h2>
-                            <p>Track notices, workshops, and your study schedule from a single, easy-to-use student dashboard.</p>
-                        </div>
-                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80" alt="Students studying together in a classroom" />
-                    </article>
-                    <article class="slide">
-                        <div class="slide-copy">
-                            <span>Campus life</span>
-                            <h2>Community-first experience</h2>
-                            <p>Enjoy events, student feedback, and support systems designed to help you thrive throughout the semester.</p>
-                        </div>
-                        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=80" alt="Students enjoying campus social gathering" />
-                    </article>
-                </div>
-                <div class="slider-controls">
-                    <button class="slider-btn slider-prev" type="button" aria-label="Previous slide">←</button>
-                    <div class="slider-dots" aria-label="Choose slide">
-                        <button class="slider-dot is-active" type="button" aria-label="Go to slide 1"></button>
-                        <button class="slider-dot" type="button" aria-label="Go to slide 2"></button>
-                        <button class="slider-dot" type="button" aria-label="Go to slide 3"></button>
-                    </div>
-                    <button class="slider-btn slider-next" type="button" aria-label="Next slide">→</button>
-                </div>
-            </section>
+        <section style="margin-bottom: 28px">
+          <h2 style="margin-bottom: 14px">Quick Access</h2>
+          <div class="grid-2">
+            <div class="card">
+              <h3><a href="pages/events.php">Campus Life</a></h3>
+              <p class="text-muted">
+                View clubs, cultural programs, upcoming activities.
+              </p>
+            </div>
+            <div class="card">
+              <h3><a href="pages/dashboard.php">Student Dashboard</a></h3>
+              <p class="text-muted">
+                Track notices, support updates, academic activity.
+              </p>
+            </div>
+            <div class="card">
+              <h3><a href="pages/notices.php">Campus Notices</a></h3>
+              <p class="text-muted">
+                Read important academic and campus announcements.
+              </p>
+            </div>
+            <div class="card">
+              <h3><a href="pages/feedback.html">Feedback</a></h3>
+              <p class="text-muted">Share ideas and report campus concerns.</p>
+            </div>
+            <div class="card">
+              <h3><a href="pages/students.html">Student Directory</a></h3>
+              <p class="text-muted">
+                Search students by name, course, year, or city.
+              </p>
+            </div>
+            <div class="card">
+              <h3><a href="pages/faqs.php">FAQs</a></h3>
+              <p class="text-muted">
+                Search answers to common account and campus questions.
+              </p>
+            </div>
+          </div>
+        </section>
 
-            <section style="margin-bottom: 28px;">
-                <h2 style="margin-bottom: 14px;">Quick Access</h2>
-                <div class="grid-2">
-                    <div class="card">
-                        <h3><a href="pages/events.php">Campus Life</a></h3>
-                        <p class="text-muted">View clubs, cultural programs, upcoming activities.</p>
-                    </div>
-                    <div class="card">
-                        <h3><a href="pages/dashboard.php">Student Dashboard</a></h3>
-                        <p class="text-muted">Track notices, support updates, academic activity.</p>
-                    </div>
-                    <div class="card">
-                        <h3><a href="pages/notices.php">Campus Notices</a></h3>
-                        <p class="text-muted">Read important academic and campus announcements.</p>
-                    </div>
-                    <div class="card">
-                        <h3><a href="pages/feedback.html">Feedback</a></h3>
-                        <p class="text-muted">Share ideas and report campus concerns.</p>
-                    </div>
-                    <div class="card">
-                        <h3><a href="pages/students.html">Student Directory</a></h3>
-                        <p class="text-muted">Search students by name, course, year, or city.</p>
-                    </div>
-                    <div class="card">
-                        <h3><a href="pages/faqs.php">FAQs</a></h3>
-                        <p class="text-muted">Search answers to common account and campus questions.</p>
-                    </div>
-                </div>
-            </section>
+        <section class="faq-section">
+          <h2>Frequently asked questions</h2>
+          <div class="faq-list">
+            <div class="faq-item">
+              <button class="faq-question" type="button" aria-expanded="false">
+                How do I register for campus events?<span>+</span>
+              </button>
+              <div class="faq-answer" hidden>
+                Visit the Events page, choose the event you are interested in,
+                and complete the registration form before the deadline.
+              </div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question" type="button" aria-expanded="false">
+                Where can I check notices and updates?<span>+</span>
+              </button>
+              <div class="faq-answer" hidden>
+                The dashboard and homepage highlight all current notices,
+                academic reminders, and important announcements for students.
+              </div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question" type="button" aria-expanded="false">
+                How do I share feedback?<span>+</span>
+              </button>
+              <div class="faq-answer" hidden>
+                Use the feedback form from the main navigation to send
+                suggestions, concerns, or ideas to the admin team.
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
 
-            <section class="faq-section">
-                <h2>Frequently asked questions</h2>
-                <div class="faq-list">
-                    <div class="faq-item">
-                        <button class="faq-question" type="button" aria-expanded="false">How do I register for campus events?<span>+</span></button>
-                        <div class="faq-answer" hidden>
-                            Visit the Events page, choose the event you are interested in, and complete the registration form before the deadline.
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <button class="faq-question" type="button" aria-expanded="false">Where can I check notices and updates?<span>+</span></button>
-                        <div class="faq-answer" hidden>
-                            The dashboard and homepage highlight all current notices, academic reminders, and important announcements for students.
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <button class="faq-question" type="button" aria-expanded="false">How do I share feedback?<span>+</span></button>
-                        <div class="faq-answer" hidden>
-                            Use the feedback form from the main navigation to send suggestions, concerns, or ideas to the admin team.
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-        </div>
-
-        <footer class="footer">
-            <p>&copy; 2026 Student Hub &middot; <a href="pages/contact.html">Contact Us</a></p>
-        </footer>
-
+      <footer class="footer">
+        <p>
+          &copy; 2026 Student Hub &middot;
+          <a href="pages/contact.html">Contact Us</a>
+        </p>
+      </footer>
     </div>
 
     <div class="modal-backdrop" data-modal aria-hidden="true">
-        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="student-modal-title">
-            <button class="modal-close" type="button" data-close-modal aria-label="Close dialog">×</button>
-            <h3 id="student-modal-title">Student guide</h3>
-            <p>Explore event updates, support resources, and campus information from one place.</p>
-            <a href="pages/register.html" class="btn">Create account</a>
-        </div>
+      <div
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="student-modal-title"
+      >
+        <button
+          class="modal-close"
+          type="button"
+          data-close-modal
+          aria-label="Close dialog"
+        >
+          ×
+        </button>
+        <h3 id="student-modal-title">Student guide</h3>
+        <p>
+          Explore event updates, support resources, and campus information from
+          one place.
+        </p>
+        <a href="pages/register.html" class="btn">Create account</a>
+      </div>
     </div>
+
+    <dialog
+      class="welcome-popup"
+      id="welcomePopup"
+      aria-labelledby="welcome-popup-title"
+    >
+      <form method="dialog">
+        <button
+          class="welcome-popup-close"
+          type="submit"
+          aria-label="Close welcome popup"
+          autofocus
+        >
+          ×
+        </button>
+      </form>
+      <p class="welcome-popup-eyebrow">Your campus, all in one place</p>
+      <h2 id="welcome-popup-title">Welcome to Student Hub!</h2>
+      <p>
+        Discover campus events, stay up to date with notices, and connect with
+        student support.
+      </p>
+      <div class="welcome-popup-actions">
+        <a class="btn" href="pages/register.html">Create an account</a>
+        <button class="btn btn-outline" type="button" data-close-welcome>
+          Continue browsing
+        </button>
+      </div>
+    </dialog>
 
     <script src="js/theme.js?v=2"></script>
     <script src="js/home-stats.js"></script>
-
-</body>
-
+    <script src="js/welcome-popup.js"></script>
+  </body>
 </html>

@@ -6,6 +6,7 @@ StudentHub is a PHP and MySQL student portal with a responsive, grayscale interf
 
 - Public Home, About, Events, Notices, Student Directory, FAQs, Feedback, and Contact pages.
 - Student registration, password-hashed login, session management, logout, and profile editing.
+- Successful registrations are also written to server-private CSV and JSON exports without passwords or password hashes. Set `STUDENTHUB_REGISTRATION_EXPORT_DIR` to configure their directory; by default they are saved in `student-hub-private` beside the web root.
 - Student dashboard with profile, notices, attendance, assignments, and event-registration information.
 - Directory and FAQ content loaded from JSON, with search and other client-side interactions.
 - MySQL-backed events, student event RSVPs, notices, feedback, and contact messages.
@@ -168,7 +169,8 @@ The Admin link is only displayed for an admin session on pages that show it, but
 - MySQL is the source of truth for accounts, event RSVPs, notices, contact messages, feedback, and administrator activity.
 - `data/students.json` supplies the public student directory.
 - `data/faqs.json` supplies the public FAQ list.
-- `data/events.json` is retained as sample JSON data; the live event page and admin event manager use MySQL.
+- `data/events.json` provides searchable, filterable, and sortable event listings on the Events page; live events and RSVPs use MySQL.
+- `data/notices.json` provides dynamically rendered campus updates on the Notices page, with search, category filtering, sorting, and five-item pagination; administrator notices continue to use MySQL.
 
 ## Verification
 

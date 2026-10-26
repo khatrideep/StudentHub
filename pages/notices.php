@@ -33,14 +33,13 @@ $escape = static fn (string $value): string => htmlspecialchars($value, ENT_QUOT
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Read the latest Student Hub campus and academic notices.">
     <title>Student Hub - Notices</title>
-    <link rel="stylesheet" href="../styles/notices.css">
+    <link rel="stylesheet" href="../styles/notices.css?v=3">
     <link rel="stylesheet" href="../styles/site.css">
 </head>
 <body class="site-page">
     <div class="page-wrapper">
         <main class="main-content">
             <header class="navbar">
-                <a href="../index.html" class="brand"><div class="logo"><img src="../logo.jpeg" alt="Student Hub Logo"></div>Student Hub</a>
                 <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">Dark mode</button>
                 <ul class="nav-links">
                     <li><a href="../index.html">Home</a></li>
@@ -63,7 +62,14 @@ $escape = static fn (string $value): string => htmlspecialchars($value, ENT_QUOT
                 <p class="text-muted">Important academic reminders and campus announcements in one place.</p>
             </section>
 
-            <section class="notice-list" aria-label="Current notices">
+            <section class="notice-section" aria-labelledby="adminNoticesHeading">
+                <div class="notice-section-heading">
+                    <div>
+                        <p class="eyebrow">Published by Student Hub</p>
+                        <h2 id="adminNoticesHeading">Official announcements</h2>
+                    </div>
+                </div>
+                <div class="notice-list" aria-label="Current admin notices">
                 <?php if ($noticesUnavailable): ?>
                     <p class="empty-notices" role="alert">Notices are temporarily unavailable. Please try again later.</p>
                 <?php else: ?>
@@ -83,10 +89,46 @@ $escape = static fn (string $value): string => htmlspecialchars($value, ENT_QUOT
                     <p class="empty-notices">There are no current notices. Please check back later.</p>
                 <?php endif; ?>
                 <?php endif; ?>
+                </div>
+            </section>
+
+            <section class="notice-section json-notice-section" aria-labelledby="campusUpdatesHeading">
+                <div class="notice-section-heading">
+                    <div>
+                        <p class="eyebrow">From the campus community</p>
+                        <h2 id="campusUpdatesHeading">Campus updates</h2>
+                        <p class="text-muted">Search, filter, and browse the latest campus reminders and updates.</p>
+                    </div>
+                </div>
+                <div class="notice-json-controls" aria-label="Search, filter, and sort campus updates">
+                    <div class="notice-json-control notice-json-search">
+                        <label for="noticeSearch">Search updates</label>
+                        <input id="noticeSearch" type="search" placeholder="Search titles, categories, or details" autocomplete="off">
+                    </div>
+                    <div class="notice-json-control">
+                        <label for="noticeCategory">Category</label>
+                        <select id="noticeCategory">
+                            <option value="">All categories</option>
+                        </select>
+                    </div>
+                    <div class="notice-json-control">
+                        <label for="noticeSort">Sort by</label>
+                        <select id="noticeSort">
+                            <option value="date-desc">Newest first</option>
+                            <option value="date-asc">Oldest first</option>
+                            <option value="title-asc">Title: A to Z</option>
+                            <option value="title-desc">Title: Z to A</option>
+                        </select>
+                    </div>
+                </div>
+                <p id="noticeJsonStatus" class="notice-json-status" role="status" aria-live="polite" aria-busy="true">Loading campus updates…</p>
+                <div id="noticeJsonList" class="notice-json-grid" aria-label="Campus updates"></div>
+                <nav id="noticeJsonPagination" class="notice-json-pagination" aria-label="Campus update pages" hidden></nav>
             </section>
         </main>
         <footer class="footer"><p>&copy; 2026 Student Hub &middot; <a href="contact.html">Contact Us</a></p></footer>
     </div>
     <script src="../js/theme.js"></script>
+    <script src="../js/notices.js"></script>
 </body>
 </html>

@@ -1,0 +1,177 @@
+#welcomePopup[open] {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    align-content: center;
+    width: min(520px, calc(100% - 32px));
+    max-height: min(90vh, 560px);
+    margin: auto;
+    padding: clamp(32px, 7vw, 48px);
+    overflow: auto;
+    border: 1px solid #d8d8d8;
+    border-radius: 24px;
+    background: #fff;
+    color: #171717;
+    box-shadow: 0 28px 90px rgba(0, 0, 0, 0.28);
+    animation: welcome-popup-enter 220ms ease-out;
+}
+
+#welcomePopup[open]::before {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 6px;
+    border-radius: 24px 24px 0 0;
+    background: linear-gradient(90deg, #111 0%, #777 55%, #d8d8d8 100%);
+    content: "";
+}
+
+#welcomePopup::backdrop {
+    background: rgba(12, 12, 12, 0.68);
+    backdrop-filter: blur(5px);
+}
+
+#welcomePopup > form {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    margin: 0;
+}
+
+#welcomePopup .welcome-popup-close {
+    display: grid;
+    width: 40px;
+    height: 40px;
+    place-items: center;
+    border: 1px solid #e2e2e2;
+    border-radius: 50%;
+    background: #f5f5f5;
+    color: #222;
+    font: inherit;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color 160ms ease, transform 160ms ease;
+}
+
+#welcomePopup .welcome-popup-close:hover {
+    background: #e9e9e9;
+    transform: rotate(90deg);
+}
+
+#welcomePopup .welcome-popup-eyebrow {
+    margin: 0 0 10px;
+    color: #666;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.4;
+    text-transform: uppercase;
+}
+
+#welcomePopup h2 {
+    margin: 0 0 14px;
+    color: #171717;
+    font-size: clamp(1.8rem, 5vw, 2.45rem);
+    font-weight: 750;
+    letter-spacing: -0.045em;
+    line-height: 1.08;
+}
+
+#welcomePopup > p:not(.welcome-popup-eyebrow) {
+    max-width: 42ch;
+    margin: 0 0 26px;
+    color: #555;
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+#welcomePopup .welcome-popup-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+#welcomePopup .welcome-popup-actions .btn,
+#welcomePopup .welcome-popup-actions button.btn {
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    border: 1px solid #171717;
+    border-radius: 999px;
+    background: #171717;
+    color: #fff;
+    font: inherit;
+    font-size: 0.92rem;
+    font-weight: 700;
+    line-height: 1.25;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+#welcomePopup .welcome-popup-actions .btn:hover,
+#welcomePopup .welcome-popup-actions button.btn:hover {
+    transform: translateY(-2px);
+}
+
+#welcomePopup .welcome-popup-actions .btn-outline,
+#welcomePopup .welcome-popup-actions button.btn-outline {
+    border-color: #d4d4d4;
+    background: #fff;
+    color: #222;
+}
+
+#welcomePopup .welcome-popup-actions .btn-outline:hover,
+#welcomePopup .welcome-popup-actions button.btn-outline:hover {
+    background: #f1f1f1;
+}
+
+#welcomePopup .welcome-popup-close:focus-visible,
+#welcomePopup .welcome-popup-actions .btn:focus-visible {
+    outline: 3px solid #555;
+    outline-offset: 3px;
+}
+
+@keyframes welcome-popup-enter {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media (max-width: 520px) {
+    #welcomePopup[open] {
+        width: calc(100% - 28px);
+        max-height: calc(100vh - 32px);
+        padding: 38px 22px 24px;
+        border-radius: 20px;
+    }
+
+    #welcomePopup .welcome-popup-actions {
+        flex-direction: column;
+    }
+
+    #welcomePopup .welcome-popup-actions .btn,
+    #welcomePopup .welcome-popup-actions button.btn {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #welcomePopup[open] {
+        animation: none;
+    }
+
+    #welcomePopup .welcome-popup-close,
+    #welcomePopup .welcome-popup-actions .btn {
+        transition: none;
+    }
+}
